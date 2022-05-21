@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Room</title>
+    <link rel="stylesheet" href="css/rooms.css"/>
+</head>
+<body onload="getInfo()">
+    <script>
+       const url = './api/v1/room/';
+       function getInfo() {
+           fetch(url, {
+            method: 'POST'})
+             .then(response => {
+                if(response.ok) {
+                        response.json().then(function (data) {
+                            viewInfo(data);
+                      })
+               } else alert("Failed to load data");
+           });
+       }
+      function viewInfo(info) {
+          let html = 'Номер вашей комнаты: ' + info.room.roomNumber +
+                '<br />Данные Игрока №1: ' +
+                '<br />Имя пользователя: ' + info.user1.username + '<br />Пароль: ' + info.user1.password +
+                '<br />Данные Игрока №2: ' +
+                '<br />Имя пользователя: ' + info.user2.username + '<br />Пароль: ' + info.user2.password;
+          document.getElementById("room").innerHTML = html;
+      }
+    </script>
+    <div class = "form">
+        <h2>Запомните для входа в комнату!</h2>
+        <p id="room"></p>
+        <p><a href="./">Вернуться назад</a></p>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Room</title>
+        <link rel="stylesheet" href="css/rooms.css"/>
+</head>
+<body>
+<div class = "form">
+    <h1>Вход</h1>
+    <div class = "error-text" style = "padding: 8px 0; border-radius: 5px; color: #fa0505; text-align: center;">
+        <p id="textError"></p>
+    </div>
+    <form>
+        <div class = "input-form">
+            <input type = "text" required="required"
+                   name = "roomUserNumber" id = "roomUserNumber" placeholder = "№ комнаты ">
+        </div>
+        <div class = "input-form">
+            <input type="submit" value="Войти" display="block" onclick="getInfoAboutRoom()"/>
+        </div>
+    </form>
+    <p><a href="room">Создать комнату</a></p>
+</div>
+</body>
+<script>
+       const url = './api/v1/room/';
+       function getInfoAboutRoom() {
+           fetch(url + document.getElementById("roomUserNumber").value, {
+            method: 'GET'
+            })
+                 .then(response => {
+                     if (response.ok) {
+                         response.json().then(function (data) {
+                            if(data === 'false') {
+                                document.getElementById('textError').value='Неправильный номер комнаты';
+                                console.log("Неправильный пароль");
+                                window.location.href = '/index.html';
+                            } else {
+                               console.log("Правильный пароль");
+                                window.location.href = 'LogIn';
+                            }
+                      })
+                     }
+                    if (response.status === 400){
+                        alert("Incorrect data");
+                    }
+                });
+           }
+    </script>
+</html>
