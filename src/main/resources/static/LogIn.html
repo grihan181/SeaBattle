@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Room</title>
     <link rel="stylesheet" href="css/rooms.css"/>
 </head>
 <body>
-<div class = "form">
-    <h2>Введите имя пользователя и пароль</h2>
-    <p></p>
-</div>
+    <div class = "form">
+        <h2>Введите имя пользователя и пароль от комнаты</h2>
+        <p th:text="${roomNumber}"></p>
+    </div>
 </body>
 </html>
 

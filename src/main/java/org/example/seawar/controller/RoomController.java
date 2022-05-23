@@ -24,14 +24,13 @@ public class RoomController {
     private UserService userService;
 //656415
     @GetMapping("{roomNumber}")
-    public String checkRoom(@PathVariable String roomNumber, Model model) {
+    public boolean checkRoom(@PathVariable String roomNumber, Model model) {
         List<Rooms> rooms = roomService.getRoomsByRoomNumber(roomNumber);
         if(rooms.size() > 0) {
             model.addAttribute("roomNumber", rooms.get(0).getRoomNumber());
-            System.out.println("здесь");
-            return rooms.get(0).getRoomNumber();
+            return true;
         } else {
-            return "false";
+            return false;
         }
     }
 
