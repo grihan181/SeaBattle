@@ -3,7 +3,6 @@ package org.example.seawar.AssistClasses;
 import org.example.seawar.model.Rooms;
 import org.example.seawar.model.Users;
 
-//656415
 public class RoomUsers {
     private Rooms room;
     private Users user1;
@@ -13,6 +12,10 @@ public class RoomUsers {
         this.room = room;
         this.user1 = user1;
         this.user2 = user2;
+    }
+    public RoomUsers(Rooms room, Users user1) {
+        this.room = room;
+        this.user1 = user1;
     }
 
     public Rooms getRoom() {

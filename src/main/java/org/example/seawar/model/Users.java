@@ -26,6 +26,8 @@ public class Users {
     @OneToMany(mappedBy = "user")
     private Set<Ships> ships = new HashSet<>();
 
+    public Users() {
+    }
     public Users(String username, String password, Rooms room) {
         this.username = username;
         this.password = password;

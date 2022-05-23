@@ -6,7 +6,6 @@ import org.example.seawar.model.Users;
 import org.example.seawar.service.RoomService;
 import org.example.seawar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,16 +21,33 @@ public class RoomController {
 
     @Autowired
     private UserService userService;
-//656415
+
     @GetMapping("{roomNumber}")
     public boolean checkRoom(@PathVariable String roomNumber, Model model) {
         List<Rooms> rooms = roomService.getRoomsByRoomNumber(roomNumber);
         if(rooms.size() > 0) {
-            model.addAttribute("roomNumber", rooms.get(0).getRoomNumber());
+            model.addAttribute("roomNumber", rooms.get(0));
             return true;
-        } else {
-            return false;
         }
+        return false;
+    }
+    @GetMapping("{roomNumber}/{username}")
+    public boolean checkUser(@PathVariable String roomNumber,
+                             @PathVariable String username,
+                             @RequestParam String password, Model model) {
+        List<Rooms> rooms = roomService.getRoomsByRoomNumber(roomNumber);
+        Rooms room = rooms.get(0);
+        List<Users> users = userService.getUsersByRoomsId(room);
+        if(users.size() > 0) {
+            for(Users user: users) {
+                if(user.getUsername().equals(username) &&
+                user.getPassword().equals(password)) {
+                    model.addAttribute("roomUser", new RoomUsers(room, user));
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @PostMapping

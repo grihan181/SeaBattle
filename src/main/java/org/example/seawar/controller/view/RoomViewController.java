@@ -14,8 +14,7 @@ public class RoomViewController {
     }
 
     @RequestMapping("LogIn/{roomNumber}")
-    public String getLogIn(@PathVariable String roomNumber, Model model) {
-        model.addAttribute("roomNumber", roomNumber);
+    public String getLogInPage(@PathVariable String roomNumber, Model model) {
         return "LogIn.html";
     }
 }

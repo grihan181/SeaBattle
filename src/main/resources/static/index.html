@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <meta charset="utf-8">
     <title>Room</title>
@@ -37,10 +37,7 @@
                          response.json().then(function (data) {
                             if(data === false) {
                                 document.getElementById('textError').style.display='';
-
-                                console.log("Неправильный пароль");
                             } else {
-                               console.log("Правильный пароль");
                                 let logInUrl = 'LogIn/' + document.getElementById('roomUserNumber').value;
                                 window.location.href = logInUrl;
                             }

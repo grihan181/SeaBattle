@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Room</title>
+    <link rel="stylesheet" href="../static/css/rooms.css"/>
+</head>
+<body>
+    <div class = "form">
+        <h2 th:text="|Введите имя пользователя и пароль от комнаты  ${roomNumber}|"></h2>
+        <div class = "error-text" style = "padding: 8px 0; border-radius: 5px; color: #fa0505; text-align: center;">
+            <p id="textError" style = "display: none;">Неправильный логин или пароль</p>
+        </div>
+        <form>
+            <div class = "input-form">
+                <input type = "text" required="required"
+                       name = "username" id = "username" placeholder = "Логин ">
+            </div>
+            <div class = "input-form">
+                <input type = "password" required="required"
+                       name = "password" id = "password" placeholder = "Пароль ">
+            </div>
+            <div class = "input-form">
+                <input type="button" value="Войти" display="block" onclick="checkUser()"/>
+            </div>
+        </form>
+    </div>
+</body>
+<script th:inline="javascript">
+       const url = '../../api/v1/room/';
+       function checkUser() {
+           fetch(url + [[${roomNumber}]] + '/' + document.getElementById("username").value +'?password=' + document.getElementById("password").value, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+            })
+                 .then(response => {
+                     if (response.ok) {
+                         response.json().then(function (data) {
+                            if(data === false) {
+                                document.getElementById('textError').style.display='';
+                            } else {
+                                let logInUrl = '../SeaWar/' + [[${roomNumber}]] + '?username=' + document.getElementById('username').value;
+                                window.location.href = logInUrl;
+                            }
+                      })
+                     }
+                    if (response.status === 400){
+                        alert("Incorrect data");
+                    }
+                });
+           }
+    </script>
+</html>
+
