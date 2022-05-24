@@ -4,199 +4,202 @@
     <meta charset="utf-8">
     <title>SeaWar</title>
     <style type="text/css">
-    element.style {
+   table {
+        border-collapse: collapse;
+        table-layout: fixed;
+        text-align: center;
+   }
+   th, td {
+        border: 1px solid;
+        max-width: 20px;
+        max-height: 20px;
+        width: 20px;
+        height: 20px;
+   }
+   td {
+        cursor: pointer;
     }
-.battlefield-cell-content {
-    position: relative;
-    height: 2em;
-    width: 2em;
-}
-a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-}
-* {
-    touch-action: manipulation;
-}
-user agent stylesheet
-div {
-    display: block;
-}
-.battlefield-table {
-    /* margin: 0; */
-    /* border-collapse: collapse; */
-    cursor: default;
-    display: inline-block;
-    position: relative;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-user agent stylesheet
-table {
-    border-collapse: separate;
-    text-indent: initial;
-    border-spacing: 2px;
-}
-.battlefields {
-    padding-top: 110px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-style attribute {
-    cursor: default;
-}
-.body {
-    font: 1em/1.25 "PT Sans",arial,sans-serif;
-    position: relative;
-    overflow-y: scroll;
-    cursor: default;
-    min-height: 100%;
-    background: #fff;
-    height: 100%;
-}
-body {
-    line-height: 1;
-}
-    </style>
+    #square {
+        width: 20px;
+        height: 20px;
+        background: #f447ff;
+    }
+  </style>
 </head>
 <body>
     <h1>Приветствую в морском бое!</h1>
     <h1 th:text="|Ты зашел в комнату ${roomNumber} под игроком ${username}|"></h1>
-    <div class="battlefield-gap">
-        <div class="battlefield-table-placeholder">
-            <table class="battlefield-table">
-                <tbody>
-                <tr class="battlefield-row">
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="0" data-x="0">
-                            <span class="z"></span>&nbsp;<div class="marker marker__row">1</div>
-                            <div class="marker marker__col">А</div>
-                        </div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="0" data-x="1"><span class="z"></span>&nbsp;
-                            <div class="marker marker__col">Б</div>
-                        </div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="0" data-x="2">
-                            <span class="z"></span>&nbsp;<div class="marker marker__col">В</div
-                        ></div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="0" data-x="3">
-                            <span class="z"></span>&nbsp;<div class="marker marker__col">Г</div>
-                        </div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="0" data-x="4"><span class="z">
-                        </span>&nbsp;<div class="marker marker__col">Д</div>
-                        </div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="0" data-x="5">
-                            <span class="z"></span>&nbsp;<div class="marker marker__col">Е</div>
-                        </div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__busy">
-                        <div class="battlefield-cell-content" data-y="0" data-x="6">
-                            <span class="z"></span>&nbsp;<div class="marker marker__col">Ж</div>
-                            <div data-id="uYtMijichdwu" data-length="3" data-position="h" class="ship-box ship-box__h ui-draggable ship-box__draggable" style="width: 6em; height: 2em; padding-right: 2px; padding-bottom: 0px;"></div>
-                        </div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__busy">
-                        <div class="battlefield-cell-content" data-y="0" data-x="7">
-                            <span class="z"></span>&nbsp;<div class="marker marker__col">З</div>
-                        </div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__busy">
-                        <div class="battlefield-cell-content" data-y="0" data-x="8">
-                            <span class="z"></span>&nbsp;<div class="marker marker__col">И</div>
-                        </div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="0" data-x="9">
-                            <span class="z"></span>&nbsp;<div class="marker marker__col">К</div>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="battlefield-row">
-                    <td class="battlefield-cell battlefield-cell__busy">
-                        <div class="battlefield-cell-content" data-y="1" data-x="0">
-                            <span class="z"></span>&nbsp;<div class="marker marker__row">2</div>
-                            <div data-id="1HJkbi0ZUyn0" data-length="1" data-position="h" class="ship-box ship-box__h ui-draggable ship-box__draggable" style="width: 2em; height: 2em; padding-right: 0px; padding-bottom: 0px;"></div>
-                        </div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="1" data-x="1">
-                            <span class="z"></span>&nbsp;</div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="1" data-x="2">
-                            <span class="z"></span>&nbsp;</div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="1" data-x="3">
-                            <span class="z"></span>&nbsp;</div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__busy">
-                        <div class="battlefield-cell-content" data-y="1" data-x="4">
-                            <span class="z"></span>&nbsp;<div data-id="HZS6xhVPrVRw" data-length="2" data-position="v" class="ship-box ship-box__v ui-draggable ship-box__draggable" style="width: 2em; height: 4em; padding-right: 0px; padding-bottom: 1px;"></div>
-                        </div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="1" data-x="5">
-                            <span class="z"></span>&nbsp;</div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="1" data-x="6">
-                            <span class="z"></span>&nbsp;</div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="1" data-x="7">
-                            <span class="z"></span>&nbsp;</div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="1" data-x="8">
-                            <span class="z"></span>&nbsp;</div>
-                    </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="1" data-x="9">
-                            <span class="z"></span>&nbsp;</div>
-                    </td>
-                </tr>
-                <tr class="battlefield-row"><td class="battlefield-cell battlefield-cell__empty">
-                    <div class="battlefield-cell-content" data-y="2" data-x="0">
-                        <span class="z"></span>&nbsp;<div class="marker marker__row">3</div>
-                    </div>
-                </td>
-                    <td class="battlefield-cell battlefield-cell__empty">
-                        <div class="battlefield-cell-content" data-y="2" data-x="1"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="2" data-x="2"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="2" data-x="3"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="2" data-x="4"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="2" data-x="5"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="2" data-x="6"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="2" data-x="7"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="2" data-x="8"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="2" data-x="9"><span class="z"></span>&nbsp;</div></td></tr><tr class="battlefield-row"><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="3" data-x="0"><span class="z"></span>&nbsp;<div class="marker marker__row">4</div></div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="3" data-x="1"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="3" data-x="2"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="3" data-x="3"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="3" data-x="4"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="3" data-x="5"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="3" data-x="6"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="3" data-x="7"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="3" data-x="8"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="3" data-x="9"><span class="z"></span>&nbsp;</div></td></tr><tr class="battlefield-row"><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="4" data-x="0"><span class="z"></span>&nbsp;<div class="marker marker__row">5</div></div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="4" data-x="1"><span class="z"></span>&nbsp;<div data-id="MvnYPIS5iZf1" data-length="4" data-position="v" class="ship-box ship-box__v ui-draggable ship-box__draggable" style="width: 2em; height: 8em; padding-right: 0px; padding-bottom: 3px;"></div></div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="4" data-x="2"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="4" data-x="3"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="4" data-x="4"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="4" data-x="5"><span class="z"></span>&nbsp;<div data-id="zduemHyiJUdI" data-length="3" data-position="v" class="ship-box ship-box__v ui-draggable ship-box__draggable" style="width: 2em; height: 6em; padding-right: 0px; padding-bottom: 2px;"></div></div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="4" data-x="6"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="4" data-x="7"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="4" data-x="8"><span class="z"></span>&nbsp;<div data-id="oVGa3nkiQb38" data-length="2" data-position="v" class="ship-box ship-box__v ui-draggable ship-box__draggable" style="width: 2em; height: 4em; padding-right: 0px; padding-bottom: 1px;"></div></div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="4" data-x="9"><span class="z"></span>&nbsp;</div></td></tr><tr class="battlefield-row"><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="5" data-x="0"><span class="z"></span>&nbsp;<div class="marker marker__row">6</div></div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="5" data-x="1"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="5" data-x="2"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="5" data-x="3"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="5" data-x="4"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="5" data-x="5"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="5" data-x="6"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="5" data-x="7"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="5" data-x="8"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="5" data-x="9"><span class="z"></span>&nbsp;</div></td></tr><tr class="battlefield-row"><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="6" data-x="0"><span class="z"></span>&nbsp;<div class="marker marker__row">7</div></div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="6" data-x="1"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="6" data-x="2"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="6" data-x="3"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="6" data-x="4"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="6" data-x="5"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="6" data-x="6"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="6" data-x="7"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="6" data-x="8"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="6" data-x="9"><span class="z"></span>&nbsp;</div></td></tr><tr class="battlefield-row"><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="7" data-x="0"><span class="z"></span>&nbsp;<div class="marker marker__row">8</div></div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="7" data-x="1"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="7" data-x="2"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="7" data-x="3"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="7" data-x="4"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="7" data-x="5"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="7" data-x="6"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="7" data-x="7"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="7" data-x="8"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="7" data-x="9"><span class="z"></span>&nbsp;</div></td></tr><tr class="battlefield-row"><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="8" data-x="0"><span class="z"></span>&nbsp;<div class="marker marker__row">9</div></div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="8" data-x="1"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="8" data-x="2"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="8" data-x="3"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="8" data-x="4"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="8" data-x="5"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="8" data-x="6"><span class="z"></span>&nbsp;<div data-id="QhuF9LaljGi6" data-length="2" data-position="v" class="ship-box ship-box__v ui-draggable ship-box__draggable" style="width: 2em; height: 4em; padding-right: 0px; padding-bottom: 1px;"></div></div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="8" data-x="7"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="8" data-x="8"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="8" data-x="9"><span class="z"></span>&nbsp;</div></td></tr><tr class="battlefield-row"><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="9" data-x="0"><span class="z"></span>&nbsp;<div class="marker marker__row">10</div><div data-id="muCvZTUoyMju" data-length="1" data-position="h" class="ship-box ship-box__h ui-draggable ship-box__draggable" style="width: 2em; height: 2em; padding-right: 0px; padding-bottom: 0px;"></div></div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="9" data-x="1"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="9" data-x="2"><span class="z"></span>&nbsp;<div data-id="lINGXUwtSujp" data-length="1" data-position="h" class="ship-box ship-box__h ui-draggable ship-box__draggable" style="width: 2em; height: 2em; padding-right: 0px; padding-bottom: 0px;"></div></div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="9" data-x="3"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="9" data-x="4"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="9" data-x="5"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="9" data-x="6"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="9" data-x="7"><span class="z"></span>&nbsp;</div></td><td class="battlefield-cell battlefield-cell__busy"><div class="battlefield-cell-content" data-y="9" data-x="8"><span class="z"></span>&nbsp;<div data-id="V6rLUBEn7Blj" data-length="1" data-position="h" class="ship-box ship-box__h ui-draggable ship-box__draggable" style="width: 2em; height: 2em; padding-right: 0px; padding-bottom: 0px;"></div></div></td><td class="battlefield-cell battlefield-cell__empty"><div class="battlefield-cell-content" data-y="9" data-x="9"><span class="z"></span>&nbsp;</div></td></tr></tbody></table></div>
-        <div class="battlefield-label">Ваше поле</div>
-        <ul class="placeships">
-            <li class="placeships-variant placeships-variant__randomly">
-                <span class="placeships-variant-link">Случайным образом</span>
-            </li>
-            <li class="placeships-variant placeships-variant__hands">
-                <span class="placeships-variant-link">С чистого листа</span>
-            </li>
-            <li class="placeships-variant placeships-variant__archive">
-                <span class="placeships-variant-link">Архив</span>
-            </li>
-        </ul>
-        <div class="port none">
-            <div class="port-instruction">Перетащите на поле и кликните, чтобы повернуть:</div>
-            <div class="port-lines"></div>
-        </div>
-    </div>
+    <table>
+        <tr>
+            <th></th>
+            <th>А</th>
+            <th>Б</th>
+            <th>В</th>
+            <th>Г</th>
+            <th>Д</th>
+            <th>Е</th>
+            <th>Ж</th>
+            <th>З</th>
+            <th>И</th>
+            <th>К</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+        </tr>
+        <tr>
+            <th>2</th>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+        </tr>
+        <tr>
+            <th>3</th>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+        </tr>
+        <tr>
+            <th>4</th>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+        </tr>
+        <tr>
+            <th>5</th>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+        </tr>
+        <tr>
+            <th>6</th>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+        </tr>
+        <tr>
+            <th>7</th>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+        </tr>
+        <tr>
+            <th>8</th>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+        </tr>
+        <tr>
+            <th>9</th>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+        </tr>
+        <tr>
+            <th>10</th>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)">&#10060;</td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)">&#10060;</td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)">&#10060;</td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)">&#8226;</td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)">&#8226;</td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)">&#8226;</td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+        </tr>
+    </table>
+    <p id="coordinate"></p>
+    <div id="square" draggable="true" ondragstart="drag(event)"></div>
 </body>
+<script>
+document.querySelector('table').onclick = (event) => {
+  let cell = event.target;
+  if (cell.tagName.toLowerCase() != 'td')
+    return;
+  let i = cell.parentNode.rowIndex;
+  let j = cell.cellIndex;
+  console.log(i, j);
+}
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+</script>
+
 </html>
 
