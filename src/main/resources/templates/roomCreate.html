@@ -21,15 +21,15 @@
        }
       function viewInfo(info) {
           let html = 'Номер вашей комнаты: ' + info.room.roomNumber +
-                '<br />Данные Игрока №1: ' +
+                '<br /><br />Данные Игрока №1: ' +
                 '<br />Имя пользователя: ' + info.user1.username + '<br />Пароль: ' + info.user1.password +
-                '<br />Данные Игрока №2: ' +
+                '<br /><br />Данные Игрока №2: ' +
                 '<br />Имя пользователя: ' + info.user2.username + '<br />Пароль: ' + info.user2.password;
           document.getElementById("room").innerHTML = html;
       }
     </script>
     <div class = "form">
-        <h2>Запомните для входа в комнату!</h2>
+        <h1>Запомните для входа в комнату!</h1>
         <p id="room"></p>
         <p><a href="./">Вернуться назад</a></p>
     </div>
