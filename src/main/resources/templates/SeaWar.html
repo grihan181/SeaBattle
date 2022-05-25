@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <title>SeaWar</title>
@@ -11,24 +11,39 @@
    }
    th, td {
         border: 1px solid;
-        max-width: 20px;
-        max-height: 20px;
-        width: 20px;
-        height: 20px;
+        max-width: 40px;
+        max-height: 40px;
+        width: 40px;
+        height: 40px;
    }
    td {
         cursor: pointer;
     }
-    #square {
-        width: 20px;
-        height: 20px;
+   .deck {
+        width: 40px;
+        height: 40px;
+        font-size:24px;
+        text-align: center;
+        border: 1px solid;
         background: #f447ff;
-    }
+   }
+   #3deck {
+        display:inline-block; margin-right: 1em;
+   }
   </style>
 </head>
 <body>
     <h1>Приветствую в морском бое!</h1>
     <h1 th:text="|Ты зашел в комнату ${roomNumber} под игроком ${username}|"></h1>
+    <div class = "error-text" style = "padding: 8px 0; border-radius: 5px; color: #fa0505; text-align: center;">
+        <p id="textError" style = "display: none;">Больше кораблей этого типа поставить нельзя! Нажмите сохранить или нажмите на начало одного из кораблей, чтобы убрать его!</p>
+    </div>
+    <div class = "error-text" style = "padding: 8px 0; border-radius: 5px; color: #fa0505; text-align: center;">
+        <p id="textErrorShipLocation" style = "display: none;">Здесь нельзя поставить корабль!</p>
+    </div>
+    <div class = "error-text" style = "padding: 8px 0; border-radius: 5px; color: #fa0505; text-align: center;">
+        <p id="textErrorShipCount" style = "display: none;">Поставьте еще один корабль этого типа!</p>
+    </div>
     <table>
         <tr>
             <th></th>
@@ -45,147 +60,433 @@
         </tr>
         <tr>
             <th>1</th>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td id = "11">&#10060;</td>
+            <td id = "12">&#8226;</td>
+            <td id = "13"></td>
+            <td id = "14"></td>
+            <td id = "15"></td>
+            <td id = "16"></td>
+            <td id = "17"></td>
+            <td id = "18"></td>
+            <td id = "19"></td>
+            <td id = "110"></td>
         </tr>
         <tr>
             <th>2</th>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td id = "21"></td>
+            <td id = "22"></td>
+            <td id = "23"></td>
+            <td id = "24"></td>
+            <td id = "25"></td>
+            <td id = "26"></td>
+            <td id = "27"></td>
+            <td id = "28"></td>
+            <td id = "29"></td>
+            <td id = "210"></td>
         </tr>
         <tr>
             <th>3</th>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td id = "31"></td>
+            <td id = "32"></td>
+            <td id = "33"></td>
+            <td id = "34"></td>
+            <td id = "35"></td>
+            <td id = "36"></td>
+            <td id = "37"></td>
+            <td id = "38"></td>
+            <td id = "39"></td>
+            <td id = "310"></td>
         </tr>
         <tr>
             <th>4</th>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td id = "41"></td>
+            <td id = "42"></td>
+            <td id = "43"></td>
+            <td id = "44"></td>
+            <td id = "45"></td>
+            <td id = "46"></td>
+            <td id = "47"></td>
+            <td id = "48"></td>
+            <td id = "49"></td>
+            <td id = "410"></td>
         </tr>
         <tr>
             <th>5</th>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td id = "51"></td>
+            <td id = "52"></td>
+            <td id = "53"></td>
+            <td id = "54"></td>
+            <td id = "55"></td>
+            <td id = "56"></td>
+            <td id = "57"></td>
+            <td id = "58"></td>
+            <td id = "59"></td>
+            <td id = "510"></td>
         </tr>
         <tr>
             <th>6</th>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td id = "61"></td>
+            <td id = "62"></td>
+            <td id = "63"></td>
+            <td id = "64"></td>
+            <td id = "65"></td>
+            <td id = "66"></td>
+            <td id = "67"></td>
+            <td id = "68"></td>
+            <td id = "69"></td>
+            <td id = "610"></td>
         </tr>
         <tr>
             <th>7</th>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td id = "71"></td>
+            <td id = "72"></td>
+            <td id = "73"></td>
+            <td id = "74"></td>
+            <td id = "75"></td>
+            <td id = "76"></td>
+            <td id = "77"></td>
+            <td id = "78"></td>
+            <td id = "79"></td>
+            <td id = "710"></td>
         </tr>
         <tr>
             <th>8</th>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td id = "81"></td>
+            <td id = "82"></td>
+            <td id = "83"></td>
+            <td id = "84"></td>
+            <td id = "85"></td>
+            <td id = "86"></td>
+            <td id = "87"></td>
+            <td id = "88"></td>
+            <td id = "89"></td>
+            <td id = "810"></td>
         </tr>
         <tr>
             <th>9</th>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td id = "91"></td>
+            <td id = "92"></td>
+            <td id = "93"></td>
+            <td id = "94"></td>
+            <td id = "95"></td>
+            <td id = "96"></td>
+            <td id = "97"></td>
+            <td id = "98"></td>
+            <td id = "99"></td>
+            <td id = "910"></td>
         </tr>
         <tr>
             <th>10</th>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)">&#10060;</td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)">&#10060;</td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)">&#10060;</td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)">&#8226;</td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)">&#8226;</td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)">&#8226;</td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
-            <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            <td id = "101"></td>
+            <td id = "102"></td>
+            <td id = "103"></td>
+            <td id = "104"></td>
+            <td id = "105"></td>
+            <td id = "106"></td>
+            <td id = "107"></td>
+            <td id = "108"></td>
+            <td id = "109"></td>
+            <td id = "1010"></td>
         </tr>
     </table>
     <p id="coordinate"></p>
-    <div id="square" draggable="true" ondragstart="drag(event)"></div>
+    <div id = "4deck">
+        <input  type = "text" id = "deck1" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
+        <input  type = "button" id = "button_4deck" style = "display: none;" value = "Сохранить" onclick="plusCounter()"/>
+    </div>
+    </br>
+    <div id = "3deck">
+        <input  type = "text" id = "deck2" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
+        <input  type = "text" id = "deck3" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
+    </div>
+    </br>
+    <div id = "2deck">
+        <input  type = "text" id = "deck4" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
+        <input  type = "text" id = "deck5" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
+        <input  type = "text" id = "deck6" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
+    </div>
+    </br>
+    <div id = "deck">
+        <input  type = "text" id = "deck7" required="required" class="deck"/>
+        <input  type = "text" id = "deck8" required="required" class="deck"/>
+        <input  type = "text" id = "deck9" required="required" class="deck"/>
+        <input  type = "text" id = "deck10" required="required" class="deck"/>
+    </div>
 </body>
 <script>
+var counter = 1;
+var shipCount = 0;
+var shipCountMax = 1;
+var size;
+var prei;
+var prej;
+var killi;
+var killj;
+var countOneShip = 0;
+
 document.querySelector('table').onclick = (event) => {
+        document.getElementById('button_4deck').style.display='';
   let cell = event.target;
-  if (cell.tagName.toLowerCase() != 'td')
-    return;
-  let i = cell.parentNode.rowIndex;
-  let j = cell.cellIndex;
-  console.log(i, j);
+      if (cell.tagName.toLowerCase() != 'td')
+        return;
+      let i = cell.parentNode.rowIndex;
+      let j = cell.cellIndex;
+      document.getElementById('deck' + counter).value = i + ' ' + j;
+      if(prei == i && prej == j) {
+            console.log(100);
+            makingShipsVert(i, j, size);
+            return;
+      }
+      if (document.getElementById(i + '' + j).innerHTML !== '•' && document.getElementById(i + '' + j).style.backgroundColor !== "red") {
+            prei = i;
+            prej = j;
+            document.getElementById('textErrorShipLocation').style.display='none';
+            if(counter == 1) {
+                size = 4;
+            } else if(counter == 2) {
+                size = 3;
+                shipCount = 0;
+                shipCountMax = 2;
+            } else if(counter == 4) {
+                size = 2;
+                shipCount = 0;
+                shipCountMax = 3;
+            } else if(counter == 5 || counter == 8 || counter == 9) {
+            }else if(counter == 7) {
+                size = 1;
+                shipCount = 0;
+                shipCountMax = 4;
+            }
+            shipCount++;
+
+
+            makingShips(i, j, size);
+      } else {
+             document.getElementById('textErrorShipLocation').style.display='';
+      }
+  }
+ function plusCounter() {
+    counter++;
+    countOneShip = 0;
+    document.getElementById('button_4deck').style.display='none';
 }
+function makingShips( i,  j,  shipSize) {
+
+    countOneShip++;
+    console.log(countOneShip);
+    if(countOneShip > 1) {
+    console.log(100);
+        killShip(killi, killj, size);
+    }
+    killi = i;
+    killj = j;
+
+    let firstSize = shipSize;
+    if(shipSize == 1) {
+         if (i == 10) {
+            document.getElementById((i - 1)+ '' + j).innerHTML = "•";
+         } else if (i == 1) {
+            document.getElementById((i - 1) + '' + j).innerHTML = "•";
+        } else {
+         document.getElementById((i - 1)+ '' + j).innerHTML = "•";
+         document.getElementById((i + 1) + '' + j).innerHTML = "•";
+        }
+    }
+    if (j + shipSize > 10) {
+        while(j + shipSize > 11) {
+            j--;
+            if(j < 1) {
+                document.getElementById('textErrorShipLocation').style.display='';
+                counter--;
+                return;
+            }
+        }
+    } else {
+        while(document.getElementById(i + '' + (j + shipSize)).style.backgroundColor == "red" || document.getElementById(i + '' + j).innerHTML == "•") {
+           j--;
+           if(j < 1) {
+               document.getElementById('textErrorShipLocation').style.display='';
+               counter--;
+               return;
+           }
+       }
+    }
+    while (shipSize !=0) {
+        if(j > 10 || i > 10) {
+            break;
+        }
+        if(i == 1) {
+            if(j < 10) {
+                document.getElementById((i + 1)+ '' + (j + 1)).innerHTML = "•";
+            }
+             if(j > 1) {
+                document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "•";
+                document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "•";
+             }
+        } else if(i == 10) {
+                if(j > 1) {
+                    document.getElementById((i - 1)+ '' + (j - 1)).innerHTML = "•";
+                }
+                if(j < 10) {
+                    document.getElementById((i - 1)+ '' + (j + 1)).innerHTML = "•";
+                }
+        } else if (j == 10) {
+            document.getElementById((i - 1)+ '' + (j - 1)).innerHTML = "•";
+            document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "•";
+        } else if(j == 1) {
+            document.getElementById((i - 1)+ '' + (j + 1)).innerHTML = "•";
+            if (i!=10) {
+                document.getElementById((i + 1)+ '' + (j + 1)).innerHTML = "•";
+            }
+        }else {
+            document.getElementById((i - 1)+ '' + (j - 1)).innerHTML = "•";
+            document.getElementById((i - 1)+ '' + (j + 1)).innerHTML = "•";
+            document.getElementById((i + 1)+ '' + (j + 1)).innerHTML = "•";
+            document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "•";
+       }
+       if(i < 11 && i > 0 && j < 11 && j > 0)  {
+            document.getElementById(i + '' + j).style.backgroundColor = "red";
+       }
+        shipSize--;
+        j++;
+    }
+    if (j<11) {
+        document.getElementById(i + '' + j).innerHTML = "•";
+    }
+    if(j-firstSize-1 > 0) {
+        document.getElementById(i + '' + (j-firstSize-1)).innerHTML = "•";
+    }
+}
+function makingShipsVert( i,  j,  shipSize) {
+    let firstSize = shipSize;
+    while(j + shipSize > 11) {
+        j--;
+    }
+    while (shipSize !=0) {
+        if(j > 10 || i > 10) {
+            break;
+        }
+        if(i == 1) {
+            if(j < 10) {
+                document.getElementById((i + 1)+ '' + (j + 1)).innerHTML = "•";
+            }
+             if(j > 1) {
+                document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "•";
+                document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "•";
+             }
+        } else if(i == 10) {
+                if(j > 1) {
+                    document.getElementById((i - 1)+ '' + (j - 1)).innerHTML = "•";
+                }
+                if(j < 10) {
+                    document.getElementById((i - 1)+ '' + (j + 1)).innerHTML = "•";
+                }
+        } else if (j == 10) {
+            document.getElementById((i - 1)+ '' + (j - 1)).innerHTML = "•";
+            document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "•";
+        } else if(j == 1) {
+            document.getElementById((i - 1)+ '' + (j + 1)).innerHTML = "•";
+            if (i!=10) {
+                document.getElementById((i + 1)+ '' + (j + 1)).innerHTML = "•";
+            }
+        }else {
+            document.getElementById((i - 1)+ '' + (j - 1)).innerHTML = "•";
+            document.getElementById((i - 1)+ '' + (j + 1)).innerHTML = "•";
+            document.getElementById((i + 1)+ '' + (j + 1)).innerHTML = "•";
+            document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "•";
+       }
+       if(i < 11 && i > 0 && j < 11 && j > 0)  {
+            document.getElementById(i + '' + j).style.backgroundColor = "red";
+       }
+        shipSize--;
+        i++;
+    }
+    if (j<11) {
+        document.getElementById(i + '' + j).innerHTML = "•";
+    }
+    if(i-firstSize-1 > 0) {
+        document.getElementById((i-firstSize-1) + '' + j).innerHTML = "•";
+    }
+}
+function killShip( i,  j,  shipSize) {
+    shipCount--;
+    let firstSize = shipSize;
+    if(shipSize == 1) {
+         if (i == 10) {
+            document.getElementById((i - 1)+ '' + j).innerHTML = "";
+         } else if (i == 1) {
+            document.getElementById((i - 1) + '' + j).innerHTML = "";
+        } else {
+         document.getElementById((i - 1)+ '' + j).innerHTML = "";
+         document.getElementById((i + 1) + '' + j).innerHTML = "";
+        }
+    }
+    if (j + shipSize > 10) {
+        while(j + shipSize > 11) {
+            j--;
+            if(j < 1) {
+                document.getElementById('textErrorShipLocation').style.display='';
+                counter--;
+                return;
+            }
+        }
+    } else {
+        while(document.getElementById(i + '' + (j + shipSize)).style.backgroundColor == "red" || document.getElementById(i + '' + j).innerHTML == "•") {
+           j--;
+           if(j < 1) {
+               document.getElementById('textErrorShipLocation').style.display='';
+               counter--;
+               return;
+           }
+       }
+    }
+    while (shipSize !=0) {
+        if(j > 10 || i > 10) {
+            break;
+        }
+        if(i == 1) {
+            if(j < 10) {
+                document.getElementById((i + 1)+ '' + (j + 1)).innerHTML = "";
+            }
+             if(j > 1) {
+                document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "";
+                document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "";
+             }
+        } else if(i == 10) {
+                if(j > 1) {
+                    document.getElementById((i - 1)+ '' + (j - 1)).innerHTML = "";
+                }
+                if(j < 10) {
+                    document.getElementById((i - 1)+ '' + (j + 1)).innerHTML = "";
+                }
+        } else if (j == 10) {
+            document.getElementById((i - 1)+ '' + (j - 1)).innerHTML = "";
+            document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "";
+        } else if(j == 1) {
+            document.getElementById((i - 1)+ '' + (j + 1)).innerHTML = "";
+            if (i!=10) {
+                document.getElementById((i + 1)+ '' + (j + 1)).innerHTML = "";
+            }
+        }else {
+            document.getElementById((i - 1)+ '' + (j - 1)).innerHTML = "";
+            document.getElementById((i - 1)+ '' + (j + 1)).innerHTML = "";
+            document.getElementById((i + 1)+ '' + (j + 1)).innerHTML = "";
+            document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "";
+       }
+       if(i < 11 && i > 0 && j < 11 && j > 0)  {
+            document.getElementById(i + '' + j).style.backgroundColor = "white";
+       }
+        shipSize--;
+        j++;
+    }
+    if (j<11) {
+        document.getElementById(i + '' + j).innerHTML = "";
+    }
+    if(j-firstSize-1 > 0) {
+        document.getElementById(i + '' + (j-firstSize-1)).innerHTML = "";
+    }
+}
+
 function allowDrop(ev) {
   ev.preventDefault();
 }
