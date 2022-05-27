@@ -9,13 +9,22 @@ public class Ships {
     private long id;
 
     @Column(nullable = false)
-    private char x;
+    private int x;
     @Column(nullable = false)
     private int y;
 
     @ManyToOne
     @JoinColumn(name = "users_id")
     private Users user;
+
+    public Ships() {
+
+    }
+
+    public  Ships(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public long getId() {
         return id;
@@ -25,11 +34,11 @@ public class Ships {
         this.id = id;
     }
 
-    public char getX() {
+    public int getX() {
         return x;
     }
 
-    public void setX(char x) {
+    public void setX(int x) {
         this.x = x;
     }
 

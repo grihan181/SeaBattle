@@ -9,7 +9,7 @@ public class Shots {
     private long id;
 
     @Column(nullable = false)
-    private char x;
+    private int x;
     @Column(nullable = false)
     private int y;
 
@@ -25,11 +25,11 @@ public class Shots {
         this.id = id;
     }
 
-    public char getX() {
+    public int getX() {
         return x;
     }
 
-    public void setX(char x) {
+    public void setX(int x) {
         this.x = x;
     }
 

@@ -14,6 +14,10 @@ public class SeaWarViewController {
                                 @PathVariable String roomNumber, Model model) {
         model.addAttribute("username", username);
         model.addAttribute("roomNumber", roomNumber);
-        return "SeaWar.html";
+        return "SeaWarCreate.html";
+    }
+    @RequestMapping("SeaWar/{roomNumber}/field")
+    public String getSeaWarPage() {
+       return "SeaWar.html";
     }
 }

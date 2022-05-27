@@ -14,4 +14,3 @@ public class SeawarApplication {
 		SpringApplication.run(SeawarApplication.class, args);
 	}
 }
-//Здравствуйте, посдкажите пожалуйста, а есть ли еще способы для перетаскивания кораблей и вставки их в таблицу, кроме как DropAndDrag?
