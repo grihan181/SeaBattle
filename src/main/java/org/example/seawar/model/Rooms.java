@@ -25,7 +25,7 @@ public class Rooms {
         this.roomNumber = roomNumber;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

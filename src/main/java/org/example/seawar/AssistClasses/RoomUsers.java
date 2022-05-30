@@ -8,6 +8,9 @@ public class RoomUsers {
     private Users user1;
     private Users user2;
 
+    public RoomUsers() {
+
+    }
     public RoomUsers(Rooms room, Users user1, Users user2) {
         this.room = room;
         this.user1 = user1;
@@ -44,11 +47,11 @@ public class RoomUsers {
 
     @Override
     public String toString() {
-        return "Номер вашей комнаты: " + room.getRoomNumber() +
-                "\nДанные Игрока №1: " +
-                "\nИмя пользователя: " + user1.getUsername() + " Пароль: " + user1.getPassword() +
-                "\nДанные Игрока №2: " +
-                "\nИмя пользователя: " + user2.getUsername() + " Пароль: " + user2.getPassword();
+        return "RoomUsers{" +
+                "room=" + room +
+                ", user1=" + user1 +
+                ", user2=" + user2 +
+                '}';
     }
 }
 

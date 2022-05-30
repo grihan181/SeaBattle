@@ -214,18 +214,18 @@
         <input  type = "text" id = "deck10" required="required" class="deck"/>
     </div>
 </body>
-<script>
-const url = './api/v1/seaWar/';
+<script th:inline="javascript">
+const url = '../../api/v1/seaWar/';
 
-var counter = 1;
-var shipCount = 0;
-var shipCountMax = 1;
-var size;
-var prei;
-var prej;
-var killi;
-var killj;
-var countOneShip = 0;
+let counter = 1;
+let shipCount = 0;
+let shipCountMax = 1;
+let size;
+let prei;
+let prej;
+let killi;
+let killj;
+let countOneShip = 0;
 
 document.querySelector('table').onclick = (event) => {
         document.getElementById('button_4deck').style.display='';
@@ -278,27 +278,33 @@ document.querySelector('table').onclick = (event) => {
 }
 
 function saveShips() {
-        for(let i = 1; i < 11; i++) {
+    let shipArray = [];
+    counter = 0;
+    for(let i = 1; i < 11; i++) {
             for(let j = 1; j < 11; j++) {
             if(document.getElementById(i + '' + j).style.backgroundColor == "red") {
                 let i_j = i + '_' + j;
-                fetch(url, i_j, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                    })
-            .then(response => {
-                if(response.ok) return;
-                if(response.status === 400) {
-                    alert("Incorrect id data");
-                    } else {
-                        alert("Unknown error");
-                    }
-                });
+                shipArray[counter] = i_j;
+                counter++;
             }
         }
     }
+    fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + shipArray, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+    })
+    .then(response => {
+        if(response.ok) return;
+        if(response.status === 400) {
+            alert("Incorrect id data");
+            } else {
+                alert("Unknown error");
+            }
+        });
+    let logInUrl = [[${roomNumber}]] + '/' + [[${username}]]+ '/field';
+    window.location.href = logInUrl;
 }
 function makingShips( i,  j,  shipSize) {
 

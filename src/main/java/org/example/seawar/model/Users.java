@@ -58,13 +58,6 @@ public class Users {
         this.password = password;
     }
 
-    public Rooms getRoomId() {
-        return room;
-    }
-
-    public void setRoomId(Rooms roomId) {
-        this.room = roomId;
-    }
 
     public Rooms getRoom() {
         return room;

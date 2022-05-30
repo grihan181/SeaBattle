@@ -26,6 +26,12 @@ public class Ships {
         this.y = y;
     }
 
+    public Ships(int x, int y, Users user) {
+        this.x = x;
+        this.y = y;
+        this.user = user;
+    }
+
     public long getId() {
         return id;
     }

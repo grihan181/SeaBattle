@@ -41,8 +41,7 @@ public class RoomController {
         if(users.size() > 0) {
             for(Users user: users) {
                 if(user.getUsername().equals(username) &&
-                user.getPassword().equals(password)) {
-                    model.addAttribute("roomUser", new RoomUsers(room, user));
+                    user.getPassword().equals(password)) {
                     return true;
                 }
             }

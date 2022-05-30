@@ -16,7 +16,7 @@ public class SeaWarViewController {
         model.addAttribute("roomNumber", roomNumber);
         return "SeaWarCreate.html";
     }
-    @RequestMapping("SeaWar/{roomNumber}/field")
+    @RequestMapping("SeaWar/{roomNumber}/{username}/field")
     public String getSeaWarPage() {
        return "SeaWar.html";
     }

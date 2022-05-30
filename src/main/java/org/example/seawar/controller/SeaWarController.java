@@ -5,6 +5,7 @@ import org.example.seawar.AssistClasses.RoomUsers;
 import org.example.seawar.model.Rooms;
 import org.example.seawar.model.Ships;
 import org.example.seawar.model.Users;
+import org.example.seawar.service.RoomService;
 import org.example.seawar.service.ShipService;
 import org.example.seawar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,26 +24,52 @@ public class SeaWarController {
     @Autowired
     private ShipService shipService;
 
+    @Autowired
+    private UserService userService;
 
-    @PostMapping ("{i_j}")
-    public Ships saveShips(@PathVariable String i_j, Model model) {
-       String[] splitI_J = i_j.split("_");
-       int i = Integer.parseInt(splitI_J[0]);
-       int j = Integer.parseInt(splitI_J[1]);
+    @Autowired
+    private RoomService roomService;
 
-       Ships ship = new Ships(i, j);
-       return shipService.addShip(ship);
+    @PostMapping ("{roomNumber}/{username}/{shipArray}")
+    public void saveShips( @PathVariable String roomNumber,
+                           @PathVariable String username,
+                           @PathVariable String[] shipArray, Model model) {
+        List<Rooms> rooms = roomService.getRoomsByRoomNumber(roomNumber);
+        Rooms room = rooms.get(0);
+        Users ourUser = new Users();
+        List<Users> users = userService.getUsersByRoomsId(room);
+
+        for(String i_j : shipArray) {
+            String[] splitI_J = i_j.split("_");
+            int i = Integer.parseInt(splitI_J[0]);
+            int j = Integer.parseInt(splitI_J[1]);
+
+
+            for (Users user : users) {
+                if (username.equals(user.getUsername())) {
+                    ourUser = user;
+                }
+            }
+            Ships ship = new Ships(i, j, ourUser);
+            shipService.addShip(ship);
+        }
+        model.addAttribute("roomNumber", roomNumber);
+        model.addAttribute("username", username);
+
     }
-    @GetMapping("{roomNumber}/{username}")
-    public List<Ships> takeShips(@PathVariable String username,
+    @GetMapping("{roomNumber}/{username}/userField")
+    public List<Ships> takeShips(@PathVariable String roomNumber,
+                                 @PathVariable String username,
                                  Model model) {
-       RoomUsers roomUsers = (RoomUsers) model.getAttribute("roomUser");
-       if(username.equals("user1")) {
-           return shipService.getShipsByUser(roomUsers.getUser1());
-       } else {
-           return shipService.getShipsByUser(roomUsers.getUser2());
-       }
-
-
+        List<Rooms> rooms = roomService.getRoomsByRoomNumber(roomNumber);
+        Rooms room = rooms.get(0);
+        Users ourUser = new Users();
+        List<Users> users = userService.getUsersByRoomsId(room);
+        for(Users user : users) {
+            if(username.equals(user.getUsername())) {
+                ourUser = user;
+            }
+        }
+           return shipService.getShipsByUser(ourUser);
     }
 }
