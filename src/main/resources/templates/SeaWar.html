@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-<html>
     <head>
         <meta charset="utf-8">
         <title>SeaWar</title>
@@ -21,7 +20,7 @@
         width: 40px;
         height: 40px;
    }
-   td {
+   #enemy td {
         cursor: pointer;
     }
    .deck {
@@ -67,8 +66,8 @@
                     </tr>
                     <tr>
                         <th>1</th>
-                        <td id = "11">&#10060;</td>
-                        <td id = "12">&#8226;</td>
+                        <td id = "11"></td>
+                        <td id = "12"></td>
                         <td id = "13"></td>
                         <td id = "14"></td>
                         <td id = "15"></td>
@@ -350,29 +349,41 @@
     <script th:inline="javascript">
         const url = '../../../api/v1/seaWar/';
 
-        function makeField() {
-           fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + 'userField', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-            })
-                 .then(response => {
-                     if (response.ok) {
-                         response.json().then(function (data) {
-                            if(data == null) {
-                                document.getElementById('textError').style.display='';
-                            } else {
-                                for (var i = 0; i < data.length; i++) {
-                                    document.getElementById(data[i].x + '' + data[i].y).style.backgroundColor = "red";
-                                }
-                            }
-                      })
-                     }
-                    if (response.status === 400){
-                        alert("Incorrect data");
-                    }
-                });
-           }
+    document.querySelector('#enemy').onclick = (event) => {
+         let cell = event.target;
+        if (cell.tagName.toLowerCase() != 'td')
+        return;
+        let i = cell.parentNode.rowIndex;
+        let j = cell.cellIndex;
+       console.log(i + ' ' + j);
+    }
+
+    function shooting() {
+
+    }
+    function makeField() {
+       fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + 'userField', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        })
+             .then(response => {
+                 if (response.ok) {
+                     response.json().then(function (data) {
+                        if(data.length == 1) {
+                           let logInUrl = '.. /../../SeaWar/' + [[${roomNumber}]] + '?username=' + [[${username}]];
+                           window.location.href = logInUrl;
+                        }
+                        for (var i = 0; i < data.length; i++) {
+                            document.getElementById(data[i].x + '' + data[i].y).style.backgroundColor = "blue";
+                        }
+                  })
+                 }
+                if (response.status === 400){
+                    alert("Incorrect data");
+                }
+            });
+       }
     </script>
 </html>

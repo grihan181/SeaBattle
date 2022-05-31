@@ -60,8 +60,8 @@
         </tr>
         <tr>
             <th>1</th>
-            <td id = "11">&#10060;</td>
-            <td id = "12">&#8226;</td>
+            <td id = "11"></td>
+            <td id = "12"></td>
             <td id = "13"></td>
             <td id = "14"></td>
             <td id = "15"></td>
@@ -296,15 +296,16 @@ function saveShips() {
     }
     })
     .then(response => {
-        if(response.ok) return;
+        if(response.ok)  {
+            response.json().then(function (data) {
+                    let logInUrl = [[${roomNumber}]] + '/' + [[${username}]]+ '/field';
+                    window.location.href = logInUrl;
+            })
+        }
         if(response.status === 400) {
             alert("Incorrect id data");
-            } else {
-                alert("Unknown error");
             }
         });
-    let logInUrl = [[${roomNumber}]] + '/' + [[${username}]]+ '/field';
-    window.location.href = logInUrl;
 }
 function makingShips( i,  j,  shipSize) {
 

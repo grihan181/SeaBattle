@@ -10,14 +10,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SeaWarViewController {
 
     @RequestMapping("SeaWar/{roomNumber}")
-    public String getSeaWarPage(@RequestParam String username,
+    public String getSeaWarPageCreate(@RequestParam String username,
                                 @PathVariable String roomNumber, Model model) {
         model.addAttribute("username", username);
         model.addAttribute("roomNumber", roomNumber);
         return "SeaWarCreate.html";
     }
     @RequestMapping("SeaWar/{roomNumber}/{username}/field")
-    public String getSeaWarPage() {
-       return "SeaWar.html";
+    public String getSeaWarPage(@PathVariable String roomNumber,
+                                @PathVariable String username,
+                                Model model) {
+        model.addAttribute("roomNumber", roomNumber);
+        model.addAttribute("username", username);
+        return "SeaWar.html";
     }
 }

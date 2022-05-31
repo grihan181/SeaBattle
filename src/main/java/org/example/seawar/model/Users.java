@@ -1,8 +1,9 @@
 package org.example.seawar.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Users {
@@ -21,10 +22,10 @@ public class Users {
     private Rooms room;
 
     @OneToMany(mappedBy = "user")
-    private Set<Shots> shots = new HashSet<>();
+    private List<Shots> shots = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<Ships> ships = new HashSet<>();
+    private List<Ships> ships = new LinkedList<>();
 
     public Users() {
     }
@@ -67,19 +68,19 @@ public class Users {
         this.room = room;
     }
 
-    public Set<Shots> getShots() {
+    public List<Shots> getShots() {
         return shots;
     }
 
-    public void setShots(Set<Shots> shots) {
+    public void setShots(List<Shots> shots) {
         this.shots = shots;
     }
 
-    public Set<Ships> getShips() {
+    public List<Ships> getShips() {
         return ships;
     }
 
-    public void setShips(Set<Ships> ships) {
+    public void setShips(List<Ships> ships) {
         this.ships = ships;
     }
 }

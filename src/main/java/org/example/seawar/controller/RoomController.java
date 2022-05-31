@@ -50,7 +50,7 @@ public class RoomController {
     }
 
     @PostMapping
-    public RoomUsers makeRoom(Model model) {
+    public RoomUsers makeRoom() {
         RoomUsers roomUsers;
         Users user1;
         Users user2;
