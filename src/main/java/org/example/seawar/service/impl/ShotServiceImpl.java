@@ -6,9 +6,11 @@ import org.example.seawar.model.Users;
 import org.example.seawar.repository.ShotsRepository;
 import org.example.seawar.service.ShotService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ShotServiceImpl implements ShotService {
     @Autowired
     private ShotsRepository shotsRep;

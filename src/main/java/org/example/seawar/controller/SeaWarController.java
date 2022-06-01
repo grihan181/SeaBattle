@@ -37,7 +37,7 @@ public class SeaWarController {
     @Autowired
     private ShotService shotService;
 
-    @PostMapping ("{roomNumber}/{username}/{shipArray}")
+    @PostMapping ("{roomNumber}/{username}/{shipArray}/ships")
     public boolean saveShips(@PathVariable String roomNumber,
                              @PathVariable String username,
                              @PathVariable String[] shipArray) {
@@ -54,8 +54,8 @@ public class SeaWarController {
         }
         return true;
     }
-    @PostMapping("{roomNumber}/{username}/{i_j}")
-    public Shots addShots(@PathVariable String roomNumber,
+    @PostMapping("{roomNumber}/{username}/{i_j}/shot")
+    public void addShots(@PathVariable String roomNumber,
                           @PathVariable String username,
                           @PathVariable String i_j) {
         Users ourUser = takeOurUser(roomNumber, username);
@@ -64,12 +64,28 @@ public class SeaWarController {
         int i = Integer.parseInt(splitI_J[0]);
         int j = Integer.parseInt(splitI_J[1]);
 
-        return shotService.addShot(new Shots(i, j, ourUser));
+        shotService.addShot(new Shots(i, j, ourUser));
+    }
+    @GetMapping("{roomNumber}/{username}/{i_j}/checkShot")
+    public boolean checkShot(@PathVariable String roomNumber,
+                           @PathVariable String username,
+                           @PathVariable String i_j) {
+        Users enemy = takeOtherUsers(roomNumber, username);
+        String[] splitI_J = i_j.split("_");
+        int i = Integer.parseInt(splitI_J[0]);
+        int j = Integer.parseInt(splitI_J[1]);
+
+        List<Ships> enemyShips = shipService.getShipsByUser(enemy);
+        for(Ships ship : enemyShips) {
+            if(ship.getX() == i && ship.getY() == j) {
+                return true;
+            }
+        }
+        return false;
     }
 
-
-    @GetMapping("{roomNumber}/{username}/userField")
-    public List<ShipShotCoordinates> takeShips(@PathVariable String roomNumber,
+    @GetMapping("{roomNumber}/{username}/userFieldShips")
+    public List<ShipShotCoordinates> takeUserShips(@PathVariable String roomNumber,
                                  @PathVariable String username,  Model model) {
         Users ourUser = takeOurUser(roomNumber, username);
 
@@ -86,7 +102,34 @@ public class SeaWarController {
         }
         return coord;
     }
+    @GetMapping("{roomNumber}/{username}/userFieldShots")
+    public List<ShipShotCoordinates> takeUserShots(@PathVariable String roomNumber,
+                                               @PathVariable String username,  Model model) {
+        Users ourUser = takeOurUser(roomNumber, username);
+        return takeShots(ourUser);
+    }
+    @GetMapping("{roomNumber}/{username}/enemyFieldShots")
+    public List<ShipShotCoordinates> takeEnemyShots(@PathVariable String roomNumber,
+                                               @PathVariable String username,  Model model) {
+        Users otherUser = takeOtherUsers(roomNumber, username);
+        return takeShots(otherUser);
+    }
 
+    public List<ShipShotCoordinates> takeShots(Users user) {
+
+        List<ShipShotCoordinates> coord = new LinkedList<>();
+        List<Shots> shots = shotService.getShotsByUser(user);
+        if(shots.size() == 0) {
+            coord.add(new ShipShotCoordinates(0, 0));
+            return coord;
+        }
+
+
+        for(Shots shot : shots) {
+            coord.add(new ShipShotCoordinates(shot.getX(), shot.getY()));
+        }
+        return coord;
+    }
     public Users takeOurUser(String roomNumber,String username) {
         List<Rooms> rooms = roomService.getRoomsByRoomNumber(roomNumber);
         Rooms room = rooms.get(0);
@@ -99,5 +142,18 @@ public class SeaWarController {
             }
         }
         return ourUser;
+    }
+    public Users takeOtherUsers(String roomNumber,String username) {
+        List<Rooms> rooms = roomService.getRoomsByRoomNumber(roomNumber);
+        Rooms room = rooms.get(0);
+        Users otherUser = new Users();
+        List<Users> users = userService.getUsersByRoomsId(room);
+
+        for (Users user : users) {
+            if (!username.equals(user.getUsername())) {
+                otherUser = user;
+            }
+        }
+        return otherUser;
     }
 }

@@ -46,11 +46,15 @@
 </style>
     </head>
     <body onload="makeField()">
-    <h1 th:text="|Ты зашел в комнату ${roomNumber} под игроком ${username}|"></h1>
-        <div id = "field">
+    <h1 th:text="|Ты зашел в комнату ${roomNumber} под именем ${username}|"></h1>
+    <h2 id = "enemyStep">Ход Противника</h2>
+    <h2 id = "userStep">Твой ход</h2>
+
+    <div id = "field">
+        <fieldset id = "userField">
             <div id = "user">
                 <h1 class = "nameField">Ваше поле</h1>
-                <table>
+                <table id = "userTableField">
                     <tr>
                         <th></th>
                         <th>А</th>
@@ -196,9 +200,11 @@
                     </tr>
                 </table>
             </div>
+        </fieldset>
+        <fieldset id = "enemyField">
             <div id = "enemy">
                 <h1 class = "nameField">Поле противника</h1>
-        <table>
+                <table id = "enemyTableField">
             <tr>
                 <th></th>
                 <th>А</th>
@@ -214,8 +220,8 @@
             </tr>
             <tr>
                 <th>1</th>
-                <td id = "e11">&#10060;</td>
-                <td id = "e12">&#8226;</td>
+                <td id = "e11"></td>
+                <td id = "e12"></td>
                 <td id = "e13"></td>
                 <td id = "e14"></td>
                 <td id = "e15"></td>
@@ -343,26 +349,69 @@
                 <td id = "e1010"></td>
             </tr>
         </table>
-        </div>
-        </div>
+            </div>
+        </fieldset>
+    </div>
     </body>
     <script th:inline="javascript">
         const url = '../../../api/v1/seaWar/';
 
+
     document.querySelector('#enemy').onclick = (event) => {
-         let cell = event.target;
+
+        let cell = event.target;
         if (cell.tagName.toLowerCase() != 'td')
         return;
         let i = cell.parentNode.rowIndex;
         let j = cell.cellIndex;
-       console.log(i + ' ' + j);
+        console.log(i + ' ' + j);
+        shooting(i, j);
     }
 
-    function shooting() {
+    function shooting(i, j) {
 
+    fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + i + '_' + j + '/shot', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
     }
+    })
+    .then(response => {
+        if(response.ok)  {
+                checkShot(i, j);
+        }
+        if(response.status === 400) {
+            alert("Incorrect id data");
+            }
+        });
+    }
+
+    function checkShot(i, j) {
+        fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + i + '_' + j + '/checkShot', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        })
+             .then(response => {
+                 if (response.ok) {
+                     response.json().then(function (data) {
+                        if(data === true) {
+                            document.getElementById('e' + i + '' + j).innerHTML = "❌";
+                            document.getElementById('e' + i + '' + j).style.backgroundColor = "red";
+                        } else {
+                            document.getElementById('e' + i + '' + j).innerHTML = "•";
+                        }
+                  })
+                 }
+                if (response.status === 400){
+                    alert("Incorrect data");
+                }
+            });
+    }
+
     function makeField() {
-       fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + 'userField', {
+       fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + 'userFieldShips', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -372,7 +421,7 @@
                  if (response.ok) {
                      response.json().then(function (data) {
                         if(data.length == 1) {
-                           let logInUrl = '.. /../../SeaWar/' + [[${roomNumber}]] + '?username=' + [[${username}]];
+                           let logInUrl = '../../../SeaWar/' + [[${roomNumber}]] + '?username=' + [[${username}]];
                            window.location.href = logInUrl;
                         }
                         for (var i = 0; i < data.length; i++) {
@@ -384,6 +433,55 @@
                     alert("Incorrect data");
                 }
             });
+        takeEnemyShots();
+        takeUserShots();
+    }
+       function takeEnemyShots() {
+        fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + 'enemyFieldShots', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        })
+             .then(response => {
+                 if (response.ok) {
+                     response.json().then(function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            if(document.getElementById(data[i].x + '' + data[i].y).style.backgroundColor == "blue") {
+                                document.getElementById(data[i].x + '' + data[i].y).innerHTML = "❌";
+                                document.getElementById(data[i].x + '' + data[i].y).style.backgroundColor = "red"
+                            } else {
+                                document.getElementById(data[i].x + '' + data[i].y).innerHTML = "•";
+                            }
+                        }
+                  })
+                 }
+                if (response.status === 400){
+                    alert("Incorrect data");
+                }
+            });
+    }
+       function takeUserShots() {
+            fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + 'userFieldShots', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+            })
+                 .then(response => {
+                     if (response.ok) {
+                         response.json().then(function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                checkShot(data[i].x, data[i].y);
+                            }
+                      })
+                     }
+                    if (response.status === 400){
+                        alert("Incorrect data");
+                    }
+                });
        }
+
+
     </script>
 </html>

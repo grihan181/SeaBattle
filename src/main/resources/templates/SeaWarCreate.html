@@ -44,6 +44,11 @@
     <div class = "error-text" style = "padding: 8px 0; border-radius: 5px; color: #fa0505; text-align: center;">
         <p id="textErrorShipCount" style = "display: none;">Поставьте еще один корабль этого типа!</p>
     </div>
+
+    <div style = "display: none;">
+        <input id = "roomNumber" type = "text" th:value = "${roomNumber}">
+        <input id = "username" type = "text" th:value = "${username}">
+    </div>
     <table>
         <tr>
             <th></th>
@@ -289,7 +294,7 @@ function saveShips() {
             }
         }
     }
-    fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + shipArray, {
+    fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + shipArray + '/ships', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
