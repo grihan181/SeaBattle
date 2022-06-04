@@ -4,6 +4,24 @@
     <meta charset="utf-8">
     <title>SeaWar</title>
     <style type="text/css">
+   #userTable, #enterRoom, #hello, #helpMess, #center {
+         display: flex;
+        align-items: center;
+        justify-content: center;
+   }
+
+   #button_4deck {
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+    background: #0fc3f5;
+    transition: .3;
+    width: 180px;
+    height: 90px;
+}
+#button_4deck:hover {
+    background: #4442db;
+}
    table {
         border-collapse: collapse;
         table-layout: fixed;
@@ -28,13 +46,14 @@
         background: #f447ff;
    }
    #3deck {
-        display:inline-block; margin-right: 1em;
+        display:inline-block; margin-right: 2em;
    }
   </style>
 </head>
 <body>
-    <h1>Приветствую в морском бое!</h1>
-    <h1 th:text="|Ты зашел в комнату ${roomNumber} под игроком ${username}|"></h1>
+    <h1 id = "hello">Приветствую в морском бое!</h1>
+    <h1 id = "enterRoom" th:text="|Ты зашел в комнату ${roomNumber} под игроком ${username}|"></h1>
+    <h2 id = "helpMess">Тебе необходимо расставить корабли поочереди, нажав на клетку. После того как ты поставишь корабль, нажми кнопку СОХРАНИТЬ</h2>
     <div class = "error-text" style = "padding: 8px 0; border-radius: 5px; color: #fa0505; text-align: center;">
         <p id="textError" style = "display: none;">Больше кораблей этого типа поставить нельзя! Нажмите сохранить или нажмите на начало одного из кораблей, чтобы убрать его!</p>
     </div>
@@ -49,7 +68,8 @@
         <input id = "roomNumber" type = "text" th:value = "${roomNumber}">
         <input id = "username" type = "text" th:value = "${username}">
     </div>
-    <table>
+    <div id = "center">
+        <table id = "userTable">
         <tr>
             <th></th>
             <th>А</th>
@@ -65,159 +85,155 @@
         </tr>
         <tr>
             <th>1</th>
-            <td id = "11"></td>
-            <td id = "12"></td>
-            <td id = "13"></td>
-            <td id = "14"></td>
-            <td id = "15"></td>
-            <td id = "16"></td>
-            <td id = "17"></td>
-            <td id = "18"></td>
-            <td id = "19"></td>
-            <td id = "110"></td>
+            <td id = "11">&nbsp;</td>
+            <td id = "12">&nbsp;</td>
+            <td id = "13">&nbsp;</td>
+            <td id = "14">&nbsp;</td>
+            <td id = "15">&nbsp;</td>
+            <td id = "16">&nbsp;</td>
+            <td id = "17">&nbsp;</td>
+            <td id = "18">&nbsp;</td>
+            <td id = "19">&nbsp;</td>
+            <td id = "110">&nbsp;</td>
         </tr>
         <tr>
             <th>2</th>
-            <td id = "21"></td>
-            <td id = "22"></td>
-            <td id = "23"></td>
-            <td id = "24"></td>
-            <td id = "25"></td>
-            <td id = "26"></td>
-            <td id = "27"></td>
-            <td id = "28"></td>
-            <td id = "29"></td>
-            <td id = "210"></td>
+            <td id = "21">&nbsp;</td>
+            <td id = "22">&nbsp;</td>
+            <td id = "23">&nbsp;</td>
+            <td id = "24">&nbsp;</td>
+            <td id = "25">&nbsp;</td>
+            <td id = "26">&nbsp;</td>
+            <td id = "27">&nbsp;</td>
+            <td id = "28">&nbsp;</td>
+            <td id = "29">&nbsp;</td>
+            <td id = "210">&nbsp;</td>
         </tr>
         <tr>
             <th>3</th>
-            <td id = "31"></td>
-            <td id = "32"></td>
-            <td id = "33"></td>
-            <td id = "34"></td>
-            <td id = "35"></td>
-            <td id = "36"></td>
-            <td id = "37"></td>
-            <td id = "38"></td>
-            <td id = "39"></td>
-            <td id = "310"></td>
+            <td id = "31">&nbsp;</td>
+            <td id = "32">&nbsp;</td>
+            <td id = "33">&nbsp;</td>
+            <td id = "34">&nbsp;</td>
+            <td id = "35">&nbsp;</td>
+            <td id = "36">&nbsp;</td>
+            <td id = "37">&nbsp;</td>
+            <td id = "38">&nbsp;</td>
+            <td id = "39">&nbsp;</td>
+            <td id = "310">&nbsp;</td>
         </tr>
         <tr>
             <th>4</th>
-            <td id = "41"></td>
-            <td id = "42"></td>
-            <td id = "43"></td>
-            <td id = "44"></td>
-            <td id = "45"></td>
-            <td id = "46"></td>
-            <td id = "47"></td>
-            <td id = "48"></td>
-            <td id = "49"></td>
-            <td id = "410"></td>
+            <td id = "41">&nbsp;</td>
+            <td id = "42">&nbsp;</td>
+            <td id = "43">&nbsp;</td>
+            <td id = "44">&nbsp;</td>
+            <td id = "45">&nbsp;</td>
+            <td id = "46">&nbsp;</td>
+            <td id = "47">&nbsp;</td>
+            <td id = "48">&nbsp;</td>
+            <td id = "49">&nbsp;</td>
+            <td id = "410">&nbsp;</td>
         </tr>
         <tr>
             <th>5</th>
-            <td id = "51"></td>
-            <td id = "52"></td>
-            <td id = "53"></td>
-            <td id = "54"></td>
-            <td id = "55"></td>
-            <td id = "56"></td>
-            <td id = "57"></td>
-            <td id = "58"></td>
-            <td id = "59"></td>
-            <td id = "510"></td>
+            <td id = "51">&nbsp;</td>
+            <td id = "52">&nbsp;</td>
+            <td id = "53">&nbsp;</td>
+            <td id = "54">&nbsp;</td>
+            <td id = "55">&nbsp;</td>
+            <td id = "56">&nbsp;</td>
+            <td id = "57">&nbsp;</td>
+            <td id = "58">&nbsp;</td>
+            <td id = "59">&nbsp;</td>
+            <td id = "510">&nbsp;</td>
         </tr>
         <tr>
             <th>6</th>
-            <td id = "61"></td>
-            <td id = "62"></td>
-            <td id = "63"></td>
-            <td id = "64"></td>
-            <td id = "65"></td>
-            <td id = "66"></td>
-            <td id = "67"></td>
-            <td id = "68"></td>
-            <td id = "69"></td>
-            <td id = "610"></td>
+            <td id = "61">&nbsp;</td>
+            <td id = "62">&nbsp;</td>
+            <td id = "63">&nbsp;</td>
+            <td id = "64">&nbsp;</td>
+            <td id = "65">&nbsp;</td>
+            <td id = "66">&nbsp;</td>
+            <td id = "67">&nbsp;</td>
+            <td id = "68">&nbsp;</td>
+            <td id = "69">&nbsp;</td>
+            <td id = "610">&nbsp;</td>
         </tr>
         <tr>
             <th>7</th>
-            <td id = "71"></td>
-            <td id = "72"></td>
-            <td id = "73"></td>
-            <td id = "74"></td>
-            <td id = "75"></td>
-            <td id = "76"></td>
-            <td id = "77"></td>
-            <td id = "78"></td>
-            <td id = "79"></td>
-            <td id = "710"></td>
+            <td id = "71">&nbsp;</td>
+            <td id = "72">&nbsp;</td>
+            <td id = "73">&nbsp;</td>
+            <td id = "74">&nbsp;</td>
+            <td id = "75">&nbsp;</td>
+            <td id = "76">&nbsp;</td>
+            <td id = "77">&nbsp;</td>
+            <td id = "78">&nbsp;</td>
+            <td id = "79">&nbsp;</td>
+            <td id = "710">&nbsp;</td>
         </tr>
         <tr>
             <th>8</th>
-            <td id = "81"></td>
-            <td id = "82"></td>
-            <td id = "83"></td>
-            <td id = "84"></td>
-            <td id = "85"></td>
-            <td id = "86"></td>
-            <td id = "87"></td>
-            <td id = "88"></td>
-            <td id = "89"></td>
-            <td id = "810"></td>
+            <td id = "81">&nbsp;</td>
+            <td id = "82">&nbsp;</td>
+            <td id = "83">&nbsp;</td>
+            <td id = "84">&nbsp;</td>
+            <td id = "85">&nbsp;</td>
+            <td id = "86">&nbsp;</td>
+            <td id = "87">&nbsp;</td>
+            <td id = "88">&nbsp;</td>
+            <td id = "89">&nbsp;</td>
+            <td id = "810">&nbsp;</td>
         </tr>
         <tr>
             <th>9</th>
-            <td id = "91"></td>
-            <td id = "92"></td>
-            <td id = "93"></td>
-            <td id = "94"></td>
-            <td id = "95"></td>
-            <td id = "96"></td>
-            <td id = "97"></td>
-            <td id = "98"></td>
-            <td id = "99"></td>
-            <td id = "910"></td>
+            <td id = "91">&nbsp;</td>
+            <td id = "92">&nbsp;</td>
+            <td id = "93">&nbsp;</td>
+            <td id = "94">&nbsp;</td>
+            <td id = "95">&nbsp;</td>
+            <td id = "96">&nbsp;</td>
+            <td id = "97">&nbsp;</td>
+            <td id = "98">&nbsp;</td>
+            <td id = "99">&nbsp;</td>
+            <td id = "910">&nbsp;</td>
         </tr>
         <tr>
             <th>10</th>
-            <td id = "101"></td>
-            <td id = "102"></td>
-            <td id = "103"></td>
-            <td id = "104"></td>
-            <td id = "105"></td>
-            <td id = "106"></td>
-            <td id = "107"></td>
-            <td id = "108"></td>
-            <td id = "109"></td>
-            <td id = "1010"></td>
+            <td id = "101">&nbsp;</td>
+            <td id = "102">&nbsp;</td>
+            <td id = "103">&nbsp;</td>
+            <td id = "104">&nbsp;</td>
+            <td id = "105">&nbsp;</td>
+            <td id = "106">&nbsp;</td>
+            <td id = "107">&nbsp;</td>
+            <td id = "108">&nbsp;</td>
+            <td id = "109">&nbsp;</td>
+            <td id = "1010">&nbsp;</td>
         </tr>
     </table>
-    <p id="coordinate"></p>
-    <div id = "4deck">
-        <input  type = "text" id = "deck1" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
-        <input  type = "button" id = "button_4deck" style = "display: none;" value = "Сохранить" onclick="plusCounter()"/>
-        <input  type = "button" id = "save" style = "display: none;" value = "Сохранить все корабли" onclick="saveShips()"/>
+        <input  type = "button" id = "button_4deck" style = "display: none;" value = "СОХРАНИТЬ" onclick="plusCounter()"/>
     </div>
-    </br>
+    <p id="coordinate"></p>
+    <div>Весь ваш флот</div>
+
     <div id = "3deck">
+        <input  type = "text" id = "deck1" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
+        <input  type = "button" id = "save" style = "display: none;" value = "Сохранить все корабли" onclick="saveShips()"/>
         <input  type = "text" id = "deck2" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
         <input  type = "text" id = "deck3" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
-    </div>
-    </br>
-    <div id = "2deck">
+        </br> </br>
         <input  type = "text" id = "deck4" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
         <input  type = "text" id = "deck5" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
         <input  type = "text" id = "deck6" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
-    </div>
-    </br>
-    <div id = "deck">
         <input  type = "text" id = "deck7" required="required" class="deck"/>
         <input  type = "text" id = "deck8" required="required" class="deck"/>
         <input  type = "text" id = "deck9" required="required" class="deck"/>
         <input  type = "text" id = "deck10" required="required" class="deck"/>
     </div>
+
 </body>
 <script th:inline="javascript">
 const url = '../../api/v1/seaWar/';
@@ -231,6 +247,7 @@ let prej;
 let killi;
 let killj;
 let countOneShip = 0;
+let vertShip = false;
 
 document.querySelector('table').onclick = (event) => {
         document.getElementById('button_4deck').style.display='';
@@ -239,7 +256,6 @@ document.querySelector('table').onclick = (event) => {
         return;
       let i = cell.parentNode.rowIndex;
       let j = cell.cellIndex;
-      document.getElementById('deck' + counter).value = i + ' ' + j;
       if(prei == i && prej == j) {
             console.log(100);
             makingShipsVert(i, j, size);
@@ -317,8 +333,12 @@ function makingShips( i,  j,  shipSize) {
     countOneShip++;
     console.log(countOneShip);
     if(countOneShip > 1) {
-    console.log(100);
-        killShip(killi, killj, size);
+        if(vertShip == false) {
+            killShip(killi, killj, size);
+        } else {
+            killShipVert(killi, killj, size);
+            vertShip = false;
+        }
     }
     killi = i;
     killj = j;
@@ -399,7 +419,9 @@ function makingShips( i,  j,  shipSize) {
         document.getElementById(i + '' + (j-firstSize-1)).innerHTML = "•";
     }
 }
-function makingShipsVert( i,  j,  shipSize) {
+function makingShipsVert(i,  j,  shipSize) {
+    vertShip = true;
+    killShip(killi, killj, size);
     let firstSize = shipSize;
     while(j + shipSize > 11) {
         j--;
@@ -450,6 +472,59 @@ function makingShipsVert( i,  j,  shipSize) {
         document.getElementById((i-firstSize-1) + '' + j).innerHTML = "•";
     }
 }
+
+function killShipVert(i, j, shipSize) {
+    let firstSize = shipSize;
+    while(j + shipSize > 11) {
+        j--;
+    }
+    while (shipSize !=0) {
+        if(j > 10 || i > 10) {
+            break;
+        }
+        if(i == 1) {
+            if(j < 10) {
+                document.getElementById((i + 1)+ '' + (j + 1)).innerHTML = "";
+            }
+             if(j > 1) {
+                document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "";
+                document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "";
+             }
+        } else if(i == 10) {
+                if(j > 1) {
+                    document.getElementById((i - 1)+ '' + (j - 1)).innerHTML = "";
+                }
+                if(j < 10) {
+                    document.getElementById((i - 1)+ '' + (j + 1)).innerHTML = "";
+                }
+        } else if (j == 10) {
+            document.getElementById((i - 1)+ '' + (j - 1)).innerHTML = "";
+            document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "";
+        } else if(j == 1) {
+            document.getElementById((i - 1)+ '' + (j + 1)).innerHTML = "";
+            if (i!=10) {
+                document.getElementById((i + 1)+ '' + (j + 1)).innerHTML = "";
+            }
+        }else {
+            document.getElementById((i - 1)+ '' + (j - 1)).innerHTML = "";
+            document.getElementById((i - 1)+ '' + (j + 1)).innerHTML = "";
+            document.getElementById((i + 1)+ '' + (j + 1)).innerHTML = "";
+            document.getElementById((i + 1)+ '' + (j - 1)).innerHTML = "";
+       }
+       if(i < 11 && i > 0 && j < 11 && j > 0)  {
+            document.getElementById(i + '' + j).style.backgroundColor = "white";
+       }
+        shipSize--;
+        i++;
+    }
+    if (j<11) {
+        document.getElementById(i + '' + j).innerHTML = "";
+    }
+    if(i-firstSize-1 > 0) {
+        document.getElementById((i-firstSize-1) + '' + j).innerHTML = "";
+    }
+}
+
 function killShip( i,  j,  shipSize) {
     shipCount--;
     let firstSize = shipSize;

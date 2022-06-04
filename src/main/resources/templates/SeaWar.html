@@ -3,6 +3,10 @@
     <head>
         <meta charset="utf-8">
         <title>SeaWar</title>
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+        <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
         <style type="text/css">
     #field {
       display: flex;
@@ -44,6 +48,7 @@
     }
 
 </style>
+
     </head>
     <body onload="makeField()">
     <h1 th:text="|Ты зашел в комнату ${roomNumber} под именем ${username}|"></h1>
@@ -70,133 +75,133 @@
                     </tr>
                     <tr>
                         <th>1</th>
-                        <td id = "11"></td>
-                        <td id = "12"></td>
-                        <td id = "13"></td>
-                        <td id = "14"></td>
-                        <td id = "15"></td>
-                        <td id = "16"></td>
-                        <td id = "17"></td>
-                        <td id = "18"></td>
-                        <td id = "19"></td>
-                        <td id = "110"></td>
+                        <td id = "11">&nbsp;</td>
+                        <td id = "12">&nbsp;</td>
+                        <td id = "13">&nbsp;</td>
+                        <td id = "14">&nbsp;</td>
+                        <td id = "15">&nbsp;</td>
+                        <td id = "16">&nbsp;</td>
+                        <td id = "17">&nbsp;</td>
+                        <td id = "18">&nbsp;</td>
+                        <td id = "19">&nbsp;</td>
+                        <td id = "110">&nbsp;</td>
                     </tr>
                     <tr>
                         <th>2</th>
-                        <td id = "21"></td>
-                        <td id = "22"></td>
-                        <td id = "23"></td>
-                        <td id = "24"></td>
-                        <td id = "25"></td>
-                        <td id = "26"></td>
-                        <td id = "27"></td>
-                        <td id = "28"></td>
-                        <td id = "29"></td>
-                        <td id = "210"></td>
+                        <td id = "21">&nbsp;</td>
+                        <td id = "22">&nbsp;</td>
+                        <td id = "23">&nbsp;</td>
+                        <td id = "24">&nbsp;</td>
+                        <td id = "25">&nbsp;</td>
+                        <td id = "26">&nbsp;</td>
+                        <td id = "27">&nbsp;</td>
+                        <td id = "28">&nbsp;</td>
+                        <td id = "29">&nbsp;</td>
+                        <td id = "210">&nbsp;</td>
                     </tr>
                     <tr>
                         <th>3</th>
-                        <td id = "31"></td>
-                        <td id = "32"></td>
-                        <td id = "33"></td>
-                        <td id = "34"></td>
-                        <td id = "35"></td>
-                        <td id = "36"></td>
-                        <td id = "37"></td>
-                        <td id = "38"></td>
-                        <td id = "39"></td>
-                        <td id = "310"></td>
+                        <td id = "31">&nbsp;</td>
+                        <td id = "32">&nbsp;</td>
+                        <td id = "33">&nbsp;</td>
+                        <td id = "34">&nbsp;</td>
+                        <td id = "35">&nbsp;</td>
+                        <td id = "36">&nbsp;</td>
+                        <td id = "37">&nbsp;</td>
+                        <td id = "38">&nbsp;</td>
+                        <td id = "39">&nbsp;</td>
+                        <td id = "310">&nbsp;</td>
                     </tr>
                     <tr>
                         <th>4</th>
-                        <td id = "41"></td>
-                        <td id = "42"></td>
-                        <td id = "43"></td>
-                        <td id = "44"></td>
-                        <td id = "45"></td>
-                        <td id = "46"></td>
-                        <td id = "47"></td>
-                        <td id = "48"></td>
-                        <td id = "49"></td>
-                        <td id = "410"></td>
+                        <td id = "41">&nbsp;</td>
+                        <td id = "42">&nbsp;</td>
+                        <td id = "43">&nbsp;</td>
+                        <td id = "44">&nbsp;</td>
+                        <td id = "45">&nbsp;</td>
+                        <td id = "46">&nbsp;</td>
+                        <td id = "47">&nbsp;</td>
+                        <td id = "48">&nbsp;</td>
+                        <td id = "49">&nbsp;</td>
+                        <td id = "410">&nbsp;</td>
                     </tr>
                     <tr>
                         <th>5</th>
-                        <td id = "51"></td>
-                        <td id = "52"></td>
-                        <td id = "53"></td>
-                        <td id = "54"></td>
-                        <td id = "55"></td>
-                        <td id = "56"></td>
-                        <td id = "57"></td>
-                        <td id = "58"></td>
-                        <td id = "59"></td>
-                        <td id = "510"></td>
+                        <td id = "51">&nbsp;</td>
+                        <td id = "52">&nbsp;</td>
+                        <td id = "53">&nbsp;</td>
+                        <td id = "54">&nbsp;</td>
+                        <td id = "55">&nbsp;</td>
+                        <td id = "56">&nbsp;</td>
+                        <td id = "57">&nbsp;</td>
+                        <td id = "58">&nbsp;</td>
+                        <td id = "59">&nbsp;</td>
+                        <td id = "510">&nbsp;</td>
                     </tr>
                     <tr>
                         <th>6</th>
-                        <td id = "61"></td>
-                        <td id = "62"></td>
-                        <td id = "63"></td>
-                        <td id = "64"></td>
-                        <td id = "65"></td>
-                        <td id = "66"></td>
-                        <td id = "67"></td>
-                        <td id = "68"></td>
-                        <td id = "69"></td>
-                        <td id = "610"></td>
+                        <td id = "61">&nbsp;</td>
+                        <td id = "62">&nbsp;</td>
+                        <td id = "63">&nbsp;</td>
+                        <td id = "64">&nbsp;</td>
+                        <td id = "65">&nbsp;</td>
+                        <td id = "66">&nbsp;</td>
+                        <td id = "67">&nbsp;</td>
+                        <td id = "68">&nbsp;</td>
+                        <td id = "69">&nbsp;</td>
+                        <td id = "610">&nbsp;</td>
                     </tr>
                     <tr>
                         <th>7</th>
-                        <td id = "71"></td>
-                        <td id = "72"></td>
-                        <td id = "73"></td>
-                        <td id = "74"></td>
-                        <td id = "75"></td>
-                        <td id = "76"></td>
-                        <td id = "77"></td>
-                        <td id = "78"></td>
-                        <td id = "79"></td>
-                        <td id = "710"></td>
+                        <td id = "71">&nbsp;</td>
+                        <td id = "72">&nbsp;</td>
+                        <td id = "73">&nbsp;</td>
+                        <td id = "74">&nbsp;</td>
+                        <td id = "75">&nbsp;</td>
+                        <td id = "76">&nbsp;</td>
+                        <td id = "77">&nbsp;</td>
+                        <td id = "78">&nbsp;</td>
+                        <td id = "79">&nbsp;</td>
+                        <td id = "710">&nbsp;</td>
                     </tr>
                     <tr>
                         <th>8</th>
-                        <td id = "81"></td>
-                        <td id = "82"></td>
-                        <td id = "83"></td>
-                        <td id = "84"></td>
-                        <td id = "85"></td>
-                        <td id = "86"></td>
-                        <td id = "87"></td>
-                        <td id = "88"></td>
-                        <td id = "89"></td>
-                        <td id = "810"></td>
+                        <td id = "81">&nbsp;</td>
+                        <td id = "82">&nbsp;</td>
+                        <td id = "83">&nbsp;</td>
+                        <td id = "84">&nbsp;</td>
+                        <td id = "85">&nbsp;</td>
+                        <td id = "86">&nbsp;</td>
+                        <td id = "87">&nbsp;</td>
+                        <td id = "88">&nbsp;</td>
+                        <td id = "89">&nbsp;</td>
+                        <td id = "810">&nbsp;</td>
                     </tr>
                     <tr>
                         <th>9</th>
-                        <td id = "91"></td>
-                        <td id = "92"></td>
-                        <td id = "93"></td>
-                        <td id = "94"></td>
-                        <td id = "95"></td>
-                        <td id = "96"></td>
-                        <td id = "97"></td>
-                        <td id = "98"></td>
-                        <td id = "99"></td>
-                        <td id = "910"></td>
+                        <td id = "91">&nbsp;</td>
+                        <td id = "92">&nbsp;</td>
+                        <td id = "93">&nbsp;</td>
+                        <td id = "94">&nbsp;</td>
+                        <td id = "95">&nbsp;</td>
+                        <td id = "96">&nbsp;</td>
+                        <td id = "97">&nbsp;</td>
+                        <td id = "98">&nbsp;</td>
+                        <td id = "99">&nbsp;</td>
+                        <td id = "910">&nbsp;</td>
                     </tr>
                     <tr>
                         <th>10</th>
-                        <td id = "101"></td>
-                        <td id = "102"></td>
-                        <td id = "103"></td>
-                        <td id = "104"></td>
-                        <td id = "105"></td>
-                        <td id = "106"></td>
-                        <td id = "107"></td>
-                        <td id = "108"></td>
-                        <td id = "109"></td>
-                        <td id = "1010"></td>
+                        <td id = "101">&nbsp;</td>
+                        <td id = "102">&nbsp;</td>
+                        <td id = "103">&nbsp;</td>
+                        <td id = "104">&nbsp;</td>
+                        <td id = "105">&nbsp;</td>
+                        <td id = "106">&nbsp;</td>
+                        <td id = "107">&nbsp;</td>
+                        <td id = "108">&nbsp;</td>
+                        <td id = "109">&nbsp;</td>
+                        <td id = "1010">&nbsp;</td>
                     </tr>
                 </table>
             </div>
@@ -220,133 +225,133 @@
             </tr>
             <tr>
                 <th>1</th>
-                <td id = "e11"></td>
-                <td id = "e12"></td>
-                <td id = "e13"></td>
-                <td id = "e14"></td>
-                <td id = "e15"></td>
-                <td id = "e16"></td>
-                <td id = "e17"></td>
-                <td id = "e18"></td>
-                <td id = "e19"></td>
-                <td id = "e110"></td>
+                <td id = "e11">&nbsp;</td>
+                <td id = "e12">&nbsp;</td>
+                <td id = "e13">&nbsp;</td>
+                <td id = "e14">&nbsp;</td>
+                <td id = "e15">&nbsp;</td>
+                <td id = "e16">&nbsp;</td>
+                <td id = "e17">&nbsp;</td>
+                <td id = "e18">&nbsp;</td>
+                <td id = "e19">&nbsp;</td>
+                <td id = "e110">&nbsp;</td>
             </tr>
             <tr>
                 <th>2</th>
-                <td id = "e21"></td>
-                <td id = "e22"></td>
-                <td id = "e23"></td>
-                <td id = "e24"></td>
-                <td id = "e25"></td>
-                <td id = "e26"></td>
-                <td id = "e27"></td>
-                <td id = "e28"></td>
-                <td id = "e29"></td>
-                <td id = "e210"></td>
+                <td id = "e21">&nbsp;</td>
+                <td id = "e22">&nbsp;</td>
+                <td id = "e23">&nbsp;</td>
+                <td id = "e24">&nbsp;</td>
+                <td id = "e25">&nbsp;</td>
+                <td id = "e26">&nbsp;</td>
+                <td id = "e27">&nbsp;</td>
+                <td id = "e28">&nbsp;</td>
+                <td id = "e29">&nbsp;</td>
+                <td id = "e210">&nbsp;</td>
             </tr>
             <tr>
                 <th>3</th>
-                <td id = "e31"></td>
-                <td id = "e32"></td>
-                <td id = "e33"></td>
-                <td id = "e34"></td>
-                <td id = "e35"></td>
-                <td id = "e36"></td>
-                <td id = "e37"></td>
-                <td id = "e38"></td>
-                <td id = "e39"></td>
-                <td id = "e310"></td>
+                <td id = "e31">&nbsp;</td>
+                <td id = "e32">&nbsp;</td>
+                <td id = "e33">&nbsp;</td>
+                <td id = "e34">&nbsp;</td>
+                <td id = "e35">&nbsp;</td>
+                <td id = "e36">&nbsp;</td>
+                <td id = "e37">&nbsp;</td>
+                <td id = "e38">&nbsp;</td>
+                <td id = "e39">&nbsp;</td>
+                <td id = "e310">&nbsp;</td>
             </tr>
             <tr>
                 <th>4</th>
-                <td id = "e41"></td>
-                <td id = "e42"></td>
-                <td id = "e43"></td>
-                <td id = "e44"></td>
-                <td id = "e45"></td>
-                <td id = "e46"></td>
-                <td id = "e47"></td>
-                <td id = "e48"></td>
-                <td id = "e49"></td>
-                <td id = "e410"></td>
+                <td id = "e41">&nbsp;</td>
+                <td id = "e42">&nbsp;</td>
+                <td id = "e43">&nbsp;</td>
+                <td id = "e44">&nbsp;</td>
+                <td id = "e45">&nbsp;</td>
+                <td id = "e46">&nbsp;</td>
+                <td id = "e47">&nbsp;</td>
+                <td id = "e48">&nbsp;</td>
+                <td id = "e49">&nbsp;</td>
+                <td id = "e410">&nbsp;</td>
             </tr>
             <tr>
                 <th>5</th>
-                <td id = "e51"></td>
-                <td id = "e52"></td>
-                <td id = "e53"></td>
-                <td id = "e54"></td>
-                <td id = "e55"></td>
-                <td id = "e56"></td>
-                <td id = "e57"></td>
-                <td id = "e58"></td>
-                <td id = "e59"></td>
-                <td id = "e510"></td>
+                <td id = "e51">&nbsp;</td>
+                <td id = "e52">&nbsp;</td>
+                <td id = "e53">&nbsp;</td>
+                <td id = "e54">&nbsp;</td>
+                <td id = "e55">&nbsp;</td>
+                <td id = "e56">&nbsp;</td>
+                <td id = "e57">&nbsp;</td>
+                <td id = "e58">&nbsp;</td>
+                <td id = "e59">&nbsp;</td>
+                <td id = "e510">&nbsp;</td>
             </tr>
             <tr>
                 <th>6</th>
-                <td id = "e61"></td>
-                <td id = "e62"></td>
-                <td id = "e63"></td>
-                <td id = "e64"></td>
-                <td id = "e065"></td>
-                <td id = "e66"></td>
-                <td id = "e67"></td>
-                <td id = "e68"></td>
-                <td id = "e69"></td>
-                <td id = "e610"></td>
+                <td id = "e61">&nbsp;</td>
+                <td id = "e62">&nbsp;</td>
+                <td id = "e63">&nbsp;</td>
+                <td id = "e64">&nbsp;</td>
+                <td id = "e065">&nbsp;</td>
+                <td id = "e66">&nbsp;</td>
+                <td id = "e67">&nbsp;</td>
+                <td id = "e68">&nbsp;</td>
+                <td id = "e69">&nbsp;</td>
+                <td id = "e610">&nbsp;</td>
             </tr>
             <tr>
                 <th>7</th>
-                <td id = "e71"></td>
-                <td id = "e72"></td>
-                <td id = "e73"></td>
-                <td id = "e74"></td>
-                <td id = "e75"></td>
-                <td id = "e76"></td>
-                <td id = "e77"></td>
-                <td id = "e78"></td>
-                <td id = "e79"></td>
-                <td id = "e710"></td>
+                <td id = "e71">&nbsp;</td>
+                <td id = "e72">&nbsp;</td>
+                <td id = "e73">&nbsp;</td>
+                <td id = "e74">&nbsp;</td>
+                <td id = "e75">&nbsp;</td>
+                <td id = "e76">&nbsp;</td>
+                <td id = "e77">&nbsp;</td>
+                <td id = "e78">&nbsp;</td>
+                <td id = "e79">&nbsp;</td>
+                <td id = "e710">&nbsp;</td>
             </tr>
             <tr>
                 <th>8</th>
-                <td id = "e81"></td>
-                <td id = "e82"></td>
-                <td id = "e83"></td>
-                <td id = "e84"></td>
-                <td id = "e85"></td>
-                <td id = "e86"></td>
-                <td id = "e87"></td>
-                <td id = "e88"></td>
-                <td id = "e89"></td>
-                <td id = "e810"></td>
+                <td id = "e81">&nbsp;</td>
+                <td id = "e82">&nbsp;</td>
+                <td id = "e83">&nbsp;</td>
+                <td id = "e84">&nbsp;</td>
+                <td id = "e85">&nbsp;</td>
+                <td id = "e86">&nbsp;</td>
+                <td id = "e87">&nbsp;</td>
+                <td id = "e88">&nbsp;</td>
+                <td id = "e89">&nbsp;</td>
+                <td id = "e810">&nbsp;</td>
             </tr>
             <tr>
                 <th>9</th>
-                <td id = "e91"></td>
-                <td id = "e92"></td>
-                <td id = "e93"></td>
-                <td id = "e94"></td>
-                <td id = "e95"></td>
-                <td id = "e96"></td>
-                <td id = "e97"></td>
-                <td id = "e98"></td>
-                <td id = "e99"></td>
-                <td id = "e910"></td>
+                <td id = "e91">&nbsp;</td>
+                <td id = "e92">&nbsp;</td>
+                <td id = "e93">&nbsp;</td>
+                <td id = "e94">&nbsp;</td>
+                <td id = "e95">&nbsp;</td>
+                <td id = "e96">&nbsp;</td>
+                <td id = "e97">&nbsp;</td>
+                <td id = "e98">&nbsp;</td>
+                <td id = "e99">&nbsp;</td>
+                <td id = "e910">&nbsp;</td>
             </tr>
             <tr>
                 <th>10</th>
-                <td id = "e101"></td>
-                <td id = "e102"></td>
-                <td id = "e103"></td>
-                <td id = "e104"></td>
-                <td id = "e105"></td>
-                <td id = "e106"></td>
-                <td id = "e107"></td>
-                <td id = "e108"></td>
-                <td id = "e109"></td>
-                <td id = "e1010"></td>
+                <td id = "e101">&nbsp;</td>
+                <td id = "e102">&nbsp;</td>
+                <td id = "e103">&nbsp;</td>
+                <td id = "e104">&nbsp;</td>
+                <td id = "e105">&nbsp;</td>
+                <td id = "e106">&nbsp;</td>
+                <td id = "e107">&nbsp;</td>
+                <td id = "e108">&nbsp;</td>
+                <td id = "e109">&nbsp;</td>
+                <td id = "e1010">&nbsp;</td>
             </tr>
         </table>
             </div>
@@ -355,20 +360,26 @@
     </body>
     <script th:inline="javascript">
         const url = '../../../api/v1/seaWar/';
+        let stompClient = null;
+        let socket;
+        let userShot = false;
+
 
 
     document.querySelector('#enemy').onclick = (event) => {
-
-        let cell = event.target;
-        if (cell.tagName.toLowerCase() != 'td')
-        return;
-        let i = cell.parentNode.rowIndex;
-        let j = cell.cellIndex;
-        console.log(i + ' ' + j);
-        shooting(i, j);
+        if(document.getElementById('userStep').style.display == '') {
+            let cell = event.target;
+            if (cell.tagName.toLowerCase() != 'td')
+            return;
+            let i = cell.parentNode.rowIndex;
+            let j = cell.cellIndex;
+            console.log(i + ' ' + j);
+            shooting(i, j);
+        }
     }
 
     function shooting(i, j) {
+    userShot = true;
 
     fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + i + '_' + j + '/shot', {
     method: 'POST',
@@ -387,6 +398,7 @@
     }
 
     function checkShot(i, j) {
+        let symbol;
         fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + i + '_' + j + '/checkShot', {
         method: 'GET',
         headers: {
@@ -397,10 +409,15 @@
                  if (response.ok) {
                      response.json().then(function (data) {
                         if(data === true) {
+                            symbol = "❌";
                             document.getElementById('e' + i + '' + j).innerHTML = "❌";
                             document.getElementById('e' + i + '' + j).style.backgroundColor = "red";
                         } else {
                             document.getElementById('e' + i + '' + j).innerHTML = "•";
+                            symbol = "•";
+                        }
+                        if (stompClient != null && userShot == true) {
+                            sendShoot(i, j, symbol);
                         }
                   })
                  }
@@ -435,6 +452,7 @@
             });
         takeEnemyShots();
         takeUserShots();
+        connect();
     }
        function takeEnemyShots() {
         fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + 'enemyFieldShots', {
@@ -446,8 +464,9 @@
              .then(response => {
                  if (response.ok) {
                      response.json().then(function (data) {
+
                         for (var i = 0; i < data.length; i++) {
-                            if(document.getElementById(data[i].x + '' + data[i].y).style.backgroundColor == "blue") {
+                            if(document.getElementById(data[i].x + '' + data[i].y).style.backgroundColor == "blue" || document.getElementById(data[i].x + '' + data[i].y).style.backgroundColor == "red") {
                                 document.getElementById(data[i].x + '' + data[i].y).innerHTML = "❌";
                                 document.getElementById(data[i].x + '' + data[i].y).style.backgroundColor = "red"
                             } else {
@@ -461,6 +480,7 @@
                 }
             });
     }
+
        function takeUserShots() {
             fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + 'userFieldShots', {
             method: 'GET',
@@ -471,6 +491,28 @@
                  .then(response => {
                      if (response.ok) {
                          response.json().then(function (data) {
+                         let enemyShotCount = 0;
+                         for(let i = 1; i < 11; i++) {
+                                for(let j = 1; j < 11; j++) {
+                                if(document.getElementById(i + '' + j).innerHTML != "&nbsp;") {
+                                    enemyShotCount++;
+                                }
+                            }
+                         }
+                         let fullShots = data.length + enemyShotCount;
+                         console.log(fullShots);
+                            if(fullShots % 2 != 0 && [[${username}]] == 'user1') {
+                                console.log("четное");
+                                document.getElementById('userStep').style.display='';
+                                document.getElementById('enemyStep').style.display='none';
+                            } else if(fullShots % 2 == 0 && [[${username}]] == 'user2') {
+                                console.log("не четное");
+                                document.getElementById('userStep').style.display='';
+                                document.getElementById('enemyStep').style.display='none';
+                            } else {
+                                document.getElementById('userStep').style.display='none';
+                                document.getElementById('enemyStep').style.display='';
+                            }
                             for (var i = 0; i < data.length; i++) {
                                 checkShot(data[i].x, data[i].y);
                             }
@@ -482,6 +524,27 @@
                 });
        }
 
+function connect() {
+    socket = new SockJS('/gs-guide-websocket');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/' + [[${roomNumber}]], function (shot) {
 
+        if(document.getElementById('userStep').style.display=='') {
+            document.getElementById('userStep').style.display='none';
+            document.getElementById('enemyStep').style.display='';
+        } else {
+            document.getElementById('userStep').style.display='';
+            document.getElementById('enemyStep').style.display='none';
+        }
+
+            takeEnemyShots();
+        });
+    });
+}
+function sendShoot(i, j, symbol) {
+    stompClient.send("/app/shots/" + [[${roomNumber}]], {}, JSON.stringify({'x': i, 'y':j, 'symbol': symbol}));
+}
     </script>
 </html>

@@ -1,5 +1,8 @@
 package org.example.seawar.controller.view;
 
+import org.example.seawar.model.Shots;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,4 +27,10 @@ public class SeaWarViewController {
         model.addAttribute("username", username);
         return "SeaWar.html";
     }
+    @MessageMapping("/shot")
+    @SendTo("/topic/{roomNumber}")
+    public Shots shooting(Shots shot) {
+        return shot;
+    }
+
 }
