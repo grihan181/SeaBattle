@@ -2,7 +2,7 @@
 <html xmlns:th="https://www.thymeleaf.org">
     <head>
         <meta charset="utf-8">
-        <title>SeaWar</title>
+        <title>SeaBattle</title>
         <script src="/webjars/jquery/jquery.min.js"></script>
         <script src="/webjars/sockjs-client/sockjs.min.js"></script>
         <script src="/webjars/stomp-websocket/stomp.min.js"></script>
@@ -363,7 +363,7 @@
     </div>
     </body>
     <script th:inline="javascript">
-        const url = '../../../api/v1/seaWar/';
+        const url = '../../../api/v1/seaBattle/';
         let stompClient = null;
         let socket;
         let userShot = false;
@@ -446,7 +446,7 @@
                  if (response.ok) {
                      response.json().then(function (data) {
                         if(data.length == 1) {
-                           let logInUrl = '../../../SeaWar/' + [[${roomNumber}]] + '?username=' + [[${username}]];
+                           let logInUrl = '../../../SeaBattle/' + [[${roomNumber}]] + '?username=' + [[${username}]];
                            window.location.href = logInUrl;
                         }
                         for (var i = 0; i < data.length; i++) {
