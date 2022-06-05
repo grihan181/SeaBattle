@@ -46,12 +46,16 @@
         justify-content: center;
 
     }
-
+   #enemyStep, #userStep, #helpMess {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+   }
 </style>
 
     </head>
     <body onload="makeField()">
-    <h1 th:text="|Ты зашел в комнату ${roomNumber} под именем ${username}|"></h1>
+    <h1 id = "helpMess" th:text="|Ты зашел в комнату ${roomNumber} под именем ${username}|"></h1>
     <h2 id = "enemyStep">Ход Противника</h2>
     <h2 id = "userStep">Твой ход</h2>
 

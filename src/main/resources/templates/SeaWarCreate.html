@@ -4,22 +4,22 @@
     <meta charset="utf-8">
     <title>SeaWar</title>
     <style type="text/css">
-   #userTable, #enterRoom, #hello, #helpMess, #center {
-         display: flex;
+   #userTable, #enterRoom, #hello, #helpMess, #helpMess2, #helpMess3,  #center, #ships, #messageUser {
+        display: flex;
         align-items: center;
         justify-content: center;
    }
 
-   #button_4deck {
+   #button_4deck, #save {
     color: #fff;
     text-transform: uppercase;
     border: none;
     background: #0fc3f5;
     transition: .3;
-    width: 180px;
+    width: 190 px;
     height: 90px;
 }
-#button_4deck:hover {
+#button_4deck:hover, #save:hover {
     background: #4442db;
 }
    table {
@@ -45,29 +45,38 @@
         border: 1px solid;
         background: #f447ff;
    }
-   #3deck {
+   .error-text {
+        padding: 8px 0;
+        border-radius: 5px;
+        color: #fa0505;
+        text-align: center;
+   }
+   #ships {
         display:inline-block; margin-right: 2em;
    }
   </style>
 </head>
 <body>
+
     <h1 id = "hello">Приветствую в морском бое!</h1>
     <h1 id = "enterRoom" th:text="|Ты зашел в комнату ${roomNumber} под игроком ${username}|"></h1>
-    <h2 id = "helpMess">Тебе необходимо расставить корабли поочереди, нажав на клетку. После того как ты поставишь корабль, нажми кнопку СОХРАНИТЬ</h2>
-    <div class = "error-text" style = "padding: 8px 0; border-radius: 5px; color: #fa0505; text-align: center;">
+    <h2 id = "helpMess">Тебе необходимо расставить корабли поочереди, нажав на клетку на твоем поле, (корабли выбираются автоматически).</h2>
+    <h2 id = "helpMess2">После того как ты поставишь корабль, нажми кнопку СОХРАНИТЬ</h2>
+    <h2 id = "helpMess3">Чтобы перевернуть корабль, нажмите еще раз на клетку</h2>
+    <div class = "error-text">
         <p id="textError" style = "display: none;">Больше кораблей этого типа поставить нельзя! Нажмите сохранить или нажмите на начало одного из кораблей, чтобы убрать его!</p>
     </div>
-    <div class = "error-text" style = "padding: 8px 0; border-radius: 5px; color: #fa0505; text-align: center;">
-        <p id="textErrorShipLocation" style = "display: none;">Здесь нельзя поставить корабль!</p>
+    <div class = "error-text">
+        <p id="textErrorShipLocation" style = "display: none;">Здесь нельзя поставить корабль! Или попробуйте перевернуть</p>
     </div>
-    <div class = "error-text" style = "padding: 8px 0; border-radius: 5px; color: #fa0505; text-align: center;">
+    <div class = "error-text">
         <p id="textErrorShipCount" style = "display: none;">Поставьте еще один корабль этого типа!</p>
     </div>
-
-    <div style = "display: none;">
-        <input id = "roomNumber" type = "text" th:value = "${roomNumber}">
-        <input id = "username" type = "text" th:value = "${username}">
+    <div class = "error-text">
+        <p id = "saveAllShips" style = "display: none;">Больше кораблей поставить нельзя! Сохраните все ваши корабли</p>
     </div>
+
+    <h2 id = "messageUser">Поставьте четырехпалубный корабль!</h2>
     <div id = "center">
         <table id = "userTable">
         <tr>
@@ -215,13 +224,13 @@
         </tr>
     </table>
         <input  type = "button" id = "button_4deck" style = "display: none;" value = "СОХРАНИТЬ" onclick="plusCounter()"/>
+        <input  type = "button" id = "save" style = "display: none;" value = "Сохранить все корабли" onclick="saveShips()"/>
     </div>
     <p id="coordinate"></p>
-    <div>Весь ваш флот</div>
 
-    <div id = "3deck">
+    <div id = "ships">
+        <h3>Весь ваш флот</h3>
         <input  type = "text" id = "deck1" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
-        <input  type = "button" id = "save" style = "display: none;" value = "Сохранить все корабли" onclick="saveShips()"/>
         <input  type = "text" id = "deck2" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
         <input  type = "text" id = "deck3" required="required" class="deck"/><input  type = "text" required="required" class="deck"/><input  type = "text" required="required" class="deck"/>
         </br> </br>
@@ -234,10 +243,15 @@
         <input  type = "text" id = "deck10" required="required" class="deck"/>
     </div>
 
+    <div style = "display: none;">
+        <input id = "roomNumber" type = "text" th:value = "${roomNumber}">
+        <input id = "username" type = "text" th:value = "${username}">
+    </div>
 </body>
 <script th:inline="javascript">
 const url = '../../api/v1/seaWar/';
 
+let error = false;
 let counter = 1;
 let shipCount = 0;
 let shipCountMax = 1;
@@ -250,51 +264,75 @@ let countOneShip = 0;
 let vertShip = false;
 
 document.querySelector('table').onclick = (event) => {
+    if (counter < 11) {
         document.getElementById('button_4deck').style.display='';
-  let cell = event.target;
-      if (cell.tagName.toLowerCase() != 'td')
-        return;
-      let i = cell.parentNode.rowIndex;
-      let j = cell.cellIndex;
-      if(prei == i && prej == j) {
-            console.log(100);
-            makingShipsVert(i, j, size);
+        let cell = event.target;
+          if (cell.tagName.toLowerCase() != 'td')
             return;
-      }
-      if (document.getElementById(i + '' + j).innerHTML !== '•' && document.getElementById(i + '' + j).style.backgroundColor !== "red") {
-            prei = i;
-            prej = j;
-            document.getElementById('textErrorShipLocation').style.display='none';
-            if(counter == 1) {
-                size = 4;
-            } else if(counter == 2) {
-                size = 3;
-                shipCount = 0;
-                shipCountMax = 2;
-            } else if(counter == 4) {
-                size = 2;
-                shipCount = 0;
-                shipCountMax = 3;
-            } else if(counter == 5 || counter == 8 || counter == 9) {
-            }else if(counter == 7) {
-                size = 1;
-                shipCount = 0;
-                shipCountMax = 4;
-            }
-            shipCount++;
+          let i = cell.parentNode.rowIndex;
+          let j = cell.cellIndex;
+          if(prei == i && prej == j) {
+                makingShipsVert(i, j, size);
+                return;
+          }
+          if (document.getElementById(i + '' + j).innerHTML !== '•' && document.getElementById(i + '' + j).style.backgroundColor !== "red") {
+                prei = i;
+                prej = j;
+                document.getElementById('textErrorShipLocation').style.display='none';
+                if(counter == 1) {
+                    size = 4;
+                } else if(counter == 2) {
+                    size = 3;
+                    shipCount = 0;
+                    shipCountMax = 2;
+                } else if(counter == 4) {
+                    size = 2;
+                    shipCount = 0;
+                    shipCountMax = 3;
+                } else if(counter == 5 || counter == 8 || counter == 9) {
+                }else if(counter == 7) {
+                    size = 1;
+                    shipCount = 0;
+                    shipCountMax = 4;
+                }
+                shipCount++;
 
 
-            makingShips(i, j, size);
+                makingShips(i, j, size);
+          } else {
+                 document.getElementById('textErrorShipLocation').style.display='';
+          }
       } else {
-             document.getElementById('textErrorShipLocation').style.display='';
+        document.getElementById('saveAllShips').style.display='';
       }
   }
  function plusCounter() {
     counter++;
     countOneShip = 0;
     document.getElementById('button_4deck').style.display='none';
-    if(counter == 10) {
+    if(counter == 11) {
         document.getElementById('save').style.display='';
+    }
+
+    switch (counter) {
+    case 1:
+        document.getElementById('messageUser').innerHTML = 'Поставьте четырехпалубный корабль!';
+        break;
+    case 2:
+    case 3:
+        document.getElementById('messageUser').innerHTML = 'Поставьте трехпалубный корабль!';
+        break;
+    case 4:
+    case 5:
+    case 6:
+        document.getElementById('messageUser').innerHTML = 'Поставьте двухпалубный корабль!';
+        break;
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+       document.getElementById('messageUser').innerHTML = 'Поставьте однопалубный корабль!';
+       break;
     }
 }
 
@@ -329,10 +367,8 @@ function saveShips() {
         });
 }
 function makingShips( i,  j,  shipSize) {
-
     countOneShip++;
-    console.log(countOneShip);
-    if(countOneShip > 1) {
+    if(countOneShip > 1 && error == false) {
         if(vertShip == false) {
             killShip(killi, killj, size);
         } else {
@@ -340,6 +376,7 @@ function makingShips( i,  j,  shipSize) {
             vertShip = false;
         }
     }
+    error = false;
     killi = i;
     killj = j;
 
@@ -357,22 +394,34 @@ function makingShips( i,  j,  shipSize) {
     if (j + shipSize > 10) {
         while(j + shipSize > 11) {
             j--;
+            killj = j;
             if(j < 1) {
                 document.getElementById('textErrorShipLocation').style.display='';
                 counter--;
                 return;
             }
         }
-    } else {
-        while(document.getElementById(i + '' + (j + shipSize)).style.backgroundColor == "red" || document.getElementById(i + '' + j).innerHTML == "•") {
-           j--;
-           if(j < 1) {
-               document.getElementById('textErrorShipLocation').style.display='';
-               counter--;
-               return;
-           }
-       }
     }
+        if(document.getElementById(i + '' + (j + shipSize - 1)).style.backgroundColor == "red" || document.getElementById(i + '' + (j + shipSize - 1)).innerHTML == "•"){
+            while(document.getElementById(i + '' + (j + shipSize - 1)).style.backgroundColor == "red" || document.getElementById(i + '' + (j + shipSize - 1)).innerHTML == "•") {
+               j--;
+               killj = j;
+               if(j < 1) {
+                   document.getElementById('textErrorShipLocation').style.display='';
+                   error = true;
+                   counter--;
+                   return;
+               }
+           }
+           if(document.getElementById(i + '' + j ).style.backgroundColor == "red" || document.getElementById(i + '' + j).innerHTML == "•") {
+                   document.getElementById('textErrorShipLocation').style.display='';
+                   error = true;
+                   counter--;
+                   return;
+           }
+        }
+
+            console.log(killj);
     while (shipSize !=0) {
         if(j > 10 || i > 10) {
             break;
@@ -420,11 +469,12 @@ function makingShips( i,  j,  shipSize) {
     }
 }
 function makingShipsVert(i,  j,  shipSize) {
+   error = false;
     vertShip = true;
     killShip(killi, killj, size);
     let firstSize = shipSize;
-    while(j + shipSize > 11) {
-        j--;
+    while(i + shipSize > 11) {
+        i--;
     }
     while (shipSize !=0) {
         if(j > 10 || i > 10) {
@@ -465,7 +515,7 @@ function makingShipsVert(i,  j,  shipSize) {
         shipSize--;
         i++;
     }
-    if (j<11) {
+    if (i<11) {
         document.getElementById(i + '' + j).innerHTML = "•";
     }
     if(i-firstSize-1 > 0) {
@@ -475,8 +525,8 @@ function makingShipsVert(i,  j,  shipSize) {
 
 function killShipVert(i, j, shipSize) {
     let firstSize = shipSize;
-    while(j + shipSize > 11) {
-        j--;
+    while(i + shipSize > 11) {
+        i--;
     }
     while (shipSize !=0) {
         if(j > 10 || i > 10) {
@@ -517,7 +567,7 @@ function killShipVert(i, j, shipSize) {
         shipSize--;
         i++;
     }
-    if (j<11) {
+    if (i<11) {
         document.getElementById(i + '' + j).innerHTML = "";
     }
     if(i-firstSize-1 > 0) {
