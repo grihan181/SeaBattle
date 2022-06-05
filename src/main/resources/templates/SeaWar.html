@@ -367,6 +367,7 @@
         let stompClient = null;
         let socket;
         let userShot = false;
+        let catchShot = false;
 
 
 
@@ -416,9 +417,12 @@
                             symbol = "❌";
                             document.getElementById('e' + i + '' + j).innerHTML = "❌";
                             document.getElementById('e' + i + '' + j).style.backgroundColor = "red";
+                            catchShot = true;
+
                         } else {
                             document.getElementById('e' + i + '' + j).innerHTML = "•";
                             symbol = "•";
+                            catchShot = false;
                         }
                         if (stompClient != null && userShot == true) {
                             sendShoot(i, j, symbol);
@@ -535,14 +539,15 @@ function connect() {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/' + [[${roomNumber}]], function (shot) {
 
-        if(document.getElementById('userStep').style.display=='') {
-            document.getElementById('userStep').style.display='none';
-            document.getElementById('enemyStep').style.display='';
-        } else {
-            document.getElementById('userStep').style.display='';
-            document.getElementById('enemyStep').style.display='none';
+        if (JSON.parse(shot.body).symbol == "•") {
+            if(document.getElementById('userStep').style.display=='' && catchShot == false) {
+                document.getElementById('userStep').style.display='none';
+                document.getElementById('enemyStep').style.display='';
+            } else {
+                document.getElementById('userStep').style.display='';
+                document.getElementById('enemyStep').style.display='none';
+            }
         }
-
             takeEnemyShots();
         });
     });
