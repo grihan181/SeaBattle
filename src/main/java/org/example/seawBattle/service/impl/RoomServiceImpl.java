@@ -1,7 +1,7 @@
 package org.example.seawBattle.service.impl;
 
-import org.example.seawBattle.model.Rooms;
-import org.example.seawBattle.repository.RoomsRepository;
+import org.example.seawBattle.model.Room;
+import org.example.seawBattle.repository.RoomRepository;
 import org.example.seawBattle.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,25 +12,31 @@ import java.util.List;
 public class RoomServiceImpl implements RoomService {
 
     @Autowired
-    private RoomsRepository roomsRep;
+    private RoomRepository roomRep;
 
     @Override
-    public Rooms addRoom(Rooms room) {
-        return roomsRep.save(room);
+    public Room addRoom(Room room) {
+        return roomRep.save(room);
     }
 
     @Override
     public void deleteRoomById(Long id) {
-        roomsRep.deleteById(id);
+        roomRep.deleteById(id);
     }
 
     @Override
-    public List<Rooms> getAll() {
-        return roomsRep.findAll();
+    public List<Room> getAll() {
+        return roomRep.findAll();
     }
 
     @Override
-    public List<Rooms> getRoomsByRoomNumber(String roomNumber) {
-        return roomsRep.findByRoomNumber(roomNumber);
+    public Room getRoomsByRoomNumber(String roomNumber) {
+        List<Room> rooms = roomRep.findByRoomNumber(roomNumber);
+        if(rooms.size() > 0) {
+            return rooms.get(0);
+        } else {
+            return null;
+        }
+
     }
 }

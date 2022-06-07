@@ -3,13 +3,12 @@ package org.example.seawBattle.controller;
 import org.example.seawBattle.service.RoomService;
 import org.example.seawBattle.service.UserService;
 import org.example.seawBattle.AssistClasses.RoomUsers;
-import org.example.seawBattle.model.Rooms;
+import org.example.seawBattle.model.Room;
 import org.example.seawBattle.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Random;
 
 @RestController
@@ -24,9 +23,9 @@ public class RoomController {
 
     @GetMapping("{roomNumber}")
     public boolean checkRoom(@PathVariable String roomNumber, Model model) {
-        List<Rooms> rooms = roomService.getRoomsByRoomNumber(roomNumber);
-        if(rooms.size() > 0) {
-            model.addAttribute("roomNumber", rooms.get(0));
+        Room room = roomService.getRoomsByRoomNumber(roomNumber);
+        if(room != null) {
+            model.addAttribute("roomNumber", room);
             return true;
         }
         return false;
@@ -34,19 +33,11 @@ public class RoomController {
     @GetMapping("{roomNumber}/{username}")
     public boolean checkUser(@PathVariable String roomNumber,
                              @PathVariable String username,
-                             @RequestParam String password, Model model) {
-        List<Rooms> rooms = roomService.getRoomsByRoomNumber(roomNumber);
-        Rooms room = rooms.get(0);
-        List<Users> users = userService.getUsersByRoomsId(room);
-        if(users.size() > 0) {
-            for(Users user: users) {
-                if(user.getUsername().equals(username) &&
-                    user.getPassword().equals(password)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+                             @RequestParam String password) {
+        Room room = roomService.getRoomsByRoomNumber(roomNumber);
+        Users user = userService.getOurUser(username, room);
+        return user.getUsername().equals(username) &&
+                user.getPassword().equals(password);
     }
 
     @PostMapping
@@ -54,30 +45,26 @@ public class RoomController {
         RoomUsers roomUsers;
         Users user1;
         Users user2;
-        Rooms room;
+        Room room;
 
         String roomNumber = "";
         boolean flag = false;
 
         while (!flag) {
             roomNumber = getRandomNumberString(6);
-            if (roomService.getRoomsByRoomNumber(roomNumber).size() == 0) {
+            if (roomService.getRoomsByRoomNumber(roomNumber) == null) {
                 flag = true;
             }
         }
-        room = new Rooms(roomNumber);
-        roomService.addRoom(room);
+        room = roomService.addRoom(new Room(roomNumber));
 
-        user1 = new Users("user1", getRandomNumberString(4), room);
-        userService.addUser(user1);
-        user2 = new Users("user2", getRandomNumberString(4), room);
-        userService.addUser(user2);
+        user1 = userService.addUser(new Users("user1", getRandomNumberString(4), room));
+        user2 = userService.addUser(new Users("user2", getRandomNumberString(4), room));
         roomUsers = new RoomUsers(room, user1, user2);
 
 
         return roomUsers;
     }
-
 
 
     public static String getRandomNumberString(int length) {

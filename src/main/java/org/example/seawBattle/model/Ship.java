@@ -3,7 +3,7 @@ package org.example.seawBattle.model;
 import javax.persistence.*;
 
 @Entity
-public class Ships {
+public class Ship {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -17,19 +17,19 @@ public class Ships {
     @JoinColumn(name = "users_id")
     private Users user;
 
-    public Ships() {
+    public Ship() {
 
     }
 
-    public  Ships(int x, int y) {
+    public Ship(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public Ships(int x, int y, Users user) {
+    public Ship(int x, int y, Users users) {
         this.x = x;
         this.y = y;
-        this.user = user;
+        this.user = users;
     }
 
     public long getId() {
@@ -60,8 +60,8 @@ public class Ships {
         return user;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setUser(Users users) {
+        this.user = users;
     }
 }
 

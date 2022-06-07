@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-public class Rooms {
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
@@ -16,11 +16,11 @@ public class Rooms {
     @OneToMany(mappedBy = "room")
     private List<Users> users = new LinkedList<>();
 
-    public Rooms() {
+    public Room() {
 
     }
 
-    public Rooms(String roomNumber) {
+    public Room(String roomNumber) {
         this.roomNumber = roomNumber;
     }
 

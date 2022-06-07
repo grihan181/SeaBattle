@@ -1,6 +1,7 @@
 package org.example.seawBattle.service;
 
-import org.example.seawBattle.model.Shots;
+import org.example.seawBattle.model.Ship;
+import org.example.seawBattle.model.Shot;
 import org.example.seawBattle.model.Users;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +9,9 @@ import java.util.List;
 
 @Service
 public interface ShotService {
-    Shots addShot(Shots shot);
+    Shot addShot(Shot shot);
 
-    List<Shots> getShotsByUser(Users user);
+    List<Shot> getShotsByUser(Users users);
+
+    public void deleteShots(List<Shot> shot);
 }

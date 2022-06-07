@@ -1,6 +1,6 @@
 package org.example.seawBattle.controller.view;
 
-import org.example.seawBattle.model.Shots;
+import org.example.seawBattle.model.Shot;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ public class SeaBattleViewController {
     }
     @MessageMapping("/shot")
     @SendTo("/topic/{roomNumber}")
-    public Shots shooting(Shots shot) {
+    public Shot shooting(Shot shot) {
         return shot;
     }
 

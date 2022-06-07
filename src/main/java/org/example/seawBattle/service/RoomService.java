@@ -1,18 +1,18 @@
 package org.example.seawBattle.service;
 
-import org.example.seawBattle.model.Rooms;
+import org.example.seawBattle.model.Room;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface RoomService {
-     Rooms addRoom(Rooms room);
+     Room addRoom(Room room);
 
      void deleteRoomById(Long id);
 
-     List<Rooms> getAll();
+     List<Room> getAll();
 
-     List<Rooms> getRoomsByRoomNumber(String roomNum);
+     Room getRoomsByRoomNumber(String roomNum);
 
 }

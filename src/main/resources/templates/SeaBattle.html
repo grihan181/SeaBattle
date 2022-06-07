@@ -46,18 +46,22 @@
         justify-content: center;
 
     }
-   #enemyStep, #userStep, #helpMess {
+   #enemyStep, #userStep, #helpMess, #winMessage, #looseMessage {
         display: flex;
         align-items: center;
         justify-content: center;
    }
+
 </style>
 
     </head>
     <body onload="makeField()">
     <h1 id = "helpMess" th:text="|Ты зашел в комнату ${roomNumber} под именем ${username}|"></h1>
+    <h1 id = "winMessage">Ты выиграл</h1>
+    <h1 id = "looseMessage">Ты проиграл</h1>
     <h2 id = "enemyStep">Ход Противника</h2>
     <h2 id = "userStep">Твой ход</h2>
+    <input  type = "button" id = "playAgain" style = "display: none;" value = "Сыграть заново" onclick="DeleteShotsAndShips()"/>
 
     <div id = "field">
         <fieldset id = "userField">
@@ -298,7 +302,7 @@
                 <td id = "e62">&nbsp;</td>
                 <td id = "e63">&nbsp;</td>
                 <td id = "e64">&nbsp;</td>
-                <td id = "e065">&nbsp;</td>
+                <td id = "e65">&nbsp;</td>
                 <td id = "e66">&nbsp;</td>
                 <td id = "e67">&nbsp;</td>
                 <td id = "e68">&nbsp;</td>
@@ -368,17 +372,17 @@
         let socket;
         let userShot = false;
         let catchShot = false;
+        let lastShoot = false;
 
 
 
     document.querySelector('#enemy').onclick = (event) => {
-        if(document.getElementById('userStep').style.display == '') {
+        if(document.getElementById('userStep').style.display == '' && lastShoot == false) {
             let cell = event.target;
             if (cell.tagName.toLowerCase() != 'td')
             return;
             let i = cell.parentNode.rowIndex;
             let j = cell.cellIndex;
-            console.log(i + ' ' + j);
             shooting(i, j);
         }
     }
@@ -436,6 +440,9 @@
     }
 
     function makeField() {
+    document.getElementById('looseMessage').style.display = 'none';
+    document.getElementById('winMessage').style.display = 'none';
+
        fetch(url + [[${roomNumber}]] + '/' + [[${username}]] + '/' + 'userFieldShips', {
         method: 'GET',
         headers: {
@@ -460,6 +467,7 @@
             });
         takeEnemyShots();
         takeUserShots();
+        checkLifes();
         connect();
     }
        function takeEnemyShots() {
@@ -476,7 +484,7 @@
                         for (var i = 0; i < data.length; i++) {
                             if(document.getElementById(data[i].x + '' + data[i].y).style.backgroundColor == "blue" || document.getElementById(data[i].x + '' + data[i].y).style.backgroundColor == "red") {
                                 document.getElementById(data[i].x + '' + data[i].y).innerHTML = "❌";
-                                document.getElementById(data[i].x + '' + data[i].y).style.backgroundColor = "red"
+                                document.getElementById(data[i].x + '' + data[i].y).style.backgroundColor = "red";
                             } else {
                                 document.getElementById(data[i].x + '' + data[i].y).innerHTML = "•";
                             }
@@ -487,6 +495,7 @@
                     alert("Incorrect data");
                 }
             });
+            checkLifes();
     }
 
        function takeUserShots() {
@@ -508,16 +517,15 @@
                             }
                          }
                          let fullShots = data.length + enemyShotCount;
-                         console.log(fullShots);
+
                             if(fullShots % 2 != 0 && [[${username}]] == 'user1') {
-                                console.log("четное");
                                 document.getElementById('userStep').style.display='';
                                 document.getElementById('enemyStep').style.display='none';
                             } else if(fullShots % 2 == 0 && [[${username}]] == 'user2') {
-                                console.log("не четное");
                                 document.getElementById('userStep').style.display='';
                                 document.getElementById('enemyStep').style.display='none';
                             } else {
+                                console.log(fullShots);
                                 document.getElementById('userStep').style.display='none';
                                 document.getElementById('enemyStep').style.display='';
                             }
@@ -540,7 +548,7 @@ function connect() {
         stompClient.subscribe('/topic/' + [[${roomNumber}]], function (shot) {
 
         if (JSON.parse(shot.body).symbol == "•") {
-            if(document.getElementById('userStep').style.display=='' && catchShot == false) {
+            if(document.getElementById('userStep').style.display == '' && catchShot == false) {
                 document.getElementById('userStep').style.display='none';
                 document.getElementById('enemyStep').style.display='';
             } else {
@@ -555,5 +563,43 @@ function connect() {
 function sendShoot(i, j, symbol) {
     stompClient.send("/app/shots/" + [[${roomNumber}]], {}, JSON.stringify({'x': i, 'y':j, 'symbol': symbol}));
 }
+function checkLifes() {
+      let userLife = 0;
+      let enemyLife = 0;
+      for(let i = 1; i < 11; i++) {
+            for(let j = 1; j < 11; j++) {
+            if(document.getElementById('e' + i + '' + j).innerHTML == "❌") {
+                enemyLife++;
+            }
+             if(document.getElementById(i + '' + j).innerHTML == "❌") {
+                userLife++;
+            }
+        }
+     }
+
+    if(userLife >= 20) {
+          console.log(10000);
+          lastShoot = true;
+          document.getElementById('looseMessage').style.display = '';
+          document.getElementById('playAgain').style.display = '';
+    } else if(enemyLife >= 20) {
+             console.log(30000);
+             lastShoot = true;
+             document.getElementById('winMessage').style.display = '';
+             document.getElementById('playAgain').style.display = '';
+    }
+}
+ function DeleteShotsAndShips() {
+        fetch(url + [[${roomNumber}]] + '/' + [[${username}]], {
+            method: 'Delete'
+        })
+            .then(response => {
+                if (response.status === 404 || response.status === 500) {
+                    alert("user not found. Maybe it has already been deleted");
+                }
+            });
+        let logInUrl ='../../../SeaBattle/' + [[${roomNumber}]] + '/' + [[${username}]]+ '/field';
+        window.location.href = logInUrl;
+    }
     </script>
 </html>

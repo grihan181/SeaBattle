@@ -17,17 +17,17 @@ public class Users {
 
     @ManyToOne
     @JoinColumn(name = "rooms_id")
-    private Rooms room;
+    private Room room;
 
     @OneToMany(mappedBy = "user")
-    private List<Shots> shots = new LinkedList<>();
+    private List<Shot> shots = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<Ships> ships = new LinkedList<>();
+    private List<Ship> ships = new LinkedList<>();
 
     public Users() {
     }
-    public Users(String username, String password, Rooms room) {
+    public Users(String username, String password, Room room) {
         this.username = username;
         this.password = password;
         this.room = room;
@@ -58,27 +58,27 @@ public class Users {
     }
 
 
-    public Rooms getRoom() {
+    public Room getRoom() {
         return room;
     }
 
-    public void setRoom(Rooms room) {
+    public void setRoom(Room room) {
         this.room = room;
     }
 
-    public List<Shots> getShots() {
+    public List<Shot> getShots() {
         return shots;
     }
 
-    public void setShots(List<Shots> shots) {
+    public void setShots(List<Shot> shots) {
         this.shots = shots;
     }
 
-    public List<Ships> getShips() {
+    public List<Ship> getShips() {
         return ships;
     }
 
-    public void setShips(List<Ships> ships) {
+    public void setShips(List<Ship> ships) {
         this.ships = ships;
     }
 }
